@@ -3,20 +3,22 @@ package ru.otus.spring;
 //import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
-import ru.otus.spring.domain.Person;
-import ru.otus.spring.service.PersonService;
+import ru.otus.spring.domain.Question;
+import ru.otus.spring.service.QuestionService;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
-        Resource questions = context.getResource("/questions.csv");
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring-context.xml");
+        QuestionService service = context.getBean(QuestionService.class);
         try {
-            System.out.println(questions.contentLength());
+            List<Question> questions = service.getQuestions();
+            questions.forEach(question -> System.out.println(question.getData()));
         } catch (IOException e) {
-            System.out.println("Файл " + questions.getFilename() + " не найден.");
+            System.out.println("Файл с вопросами не найден.");
         }
     }
 }
