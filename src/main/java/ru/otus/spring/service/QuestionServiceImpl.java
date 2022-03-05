@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import ru.otus.spring.domain.Question;
-import ru.otus.spring.util.QuestionReader;
+import ru.otus.spring.dao.QuestionReader;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,16 +18,16 @@ public class QuestionServiceImpl implements QuestionService {
     @Value("${questionFile}")
     private String fileName;
 
-    @Value("${zachot}")
-    private int zachot;
+    @Value("${winScore}")
+    private int winScore;
 
     @Override
     public List<Question> getQuestions() throws IOException {
-        return QuestionReader.readQuestions(fileName);
+            return QuestionReader.readQuestions(fileName);
     }
 
     @Override
-    public boolean startQuiz(List<Question> questions) {
+    public void startQuiz(List<Question> questions) {
         Scanner scanner = new Scanner(System.in);
         AtomicInteger score = new AtomicInteger(0);
         questions.forEach(question -> {
@@ -40,6 +40,10 @@ public class QuestionServiceImpl implements QuestionService {
             }
         });
         System.out.println("Total score = " + score);
-        return score.get() >= zachot;
+        if (score.get() >= winScore) {
+            System.out.println("You win quiz!");
+        } else {
+            System.out.println("You lose quiz.");
+        }
     }
 }

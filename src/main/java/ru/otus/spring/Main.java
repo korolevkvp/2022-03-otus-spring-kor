@@ -11,19 +11,10 @@ import java.util.List;
 @ComponentScan
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
         QuestionService service = context.getBean(QuestionService.class);
-        try {
-            List<Question> questions = service.getQuestions();
-            if (service.startQuiz(questions)) {
-                System.out.println("You win quiz!");
-            } else {
-                System.out.println("You lose quiz.");
-            }
-        } catch (IOException e) {
-            System.out.println("File does not exist: " + e.getMessage());
-        }
-
+        List<Question> questions = service.getQuestions();
+        service.startQuiz(questions);
     }
 }

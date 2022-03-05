@@ -1,4 +1,4 @@
-package ru.otus.spring.util;
+package ru.otus.spring.dao;
 
 import org.springframework.core.io.ClassPathResource;
 import ru.otus.spring.domain.Question;
