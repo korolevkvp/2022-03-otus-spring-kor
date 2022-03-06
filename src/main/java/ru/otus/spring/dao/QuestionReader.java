@@ -16,7 +16,7 @@ public class QuestionReader {
         ClassPathResource resource = new ClassPathResource(fileName);
         InputStream inputStream = resource.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        ArrayList<Question> questions = new ArrayList<>(5);
+        List<Question> questions = new ArrayList<>(5);
         reader.lines()
                 .filter(line -> line.split(",").length == 2)
                 .forEach(line -> {
