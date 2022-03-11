@@ -20,6 +20,12 @@ public class QuestionServiceImpl implements QuestionService {
     private String fileName;
     private int winScore;
 
+    private final MessageSource messageSource;
+
+    public QuestionServiceImpl(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
     public String getFileName() {
         return fileName;
     }
@@ -44,21 +50,40 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void startQuiz(List<Question> questions) {
         Scanner scanner = new Scanner(System.in);
+        Locale locale = askLocale(scanner);
         AtomicInteger score = new AtomicInteger(0);
         questions.forEach(question -> {
-            System.out.print("Question: " + question.getQuestion() + "\n$ ");
+            System.out.print(messageSource.getMessage("question", null, locale) + question.getQuestion() + "\n$ ");
             if (scanner.nextLine().equals(question.getAnswer())) {
-                System.out.println("Right answer! +1 to score");
+                System.out.println(messageSource.getMessage("right-answer", null, locale));
                 score.incrementAndGet();
             } else {
-                System.out.println("Not right answer.");
+                System.out.println(messageSource.getMessage("not-right-answer", null, locale));
             }
         });
-        System.out.println("Total score = " + score);
+        System.out.println(messageSource.getMessage("total-score", null, locale) + score);
         if (score.get() >= winScore) {
-            System.out.println("You win quiz!");
+            System.out.println(messageSource.getMessage("win", null, locale));
         } else {
-            System.out.println("You lose quiz.");
+            System.out.println(messageSource.getMessage("lose", null, locale));
         }
+    }
+
+    private Locale askLocale(Scanner scanner) {
+        Locale locale = Locale.getDefault();
+        if (!(locale.equals(Locale.forLanguageTag("ru-RU")) || locale.equals(Locale.forLanguageTag("en-EN")))) {
+            System.out.println("Локаль системы не предусмотрена в программе, устанавливаю язык ru-RU.");
+            locale = Locale.forLanguageTag("ru-RU");
+        }
+        System.out.println(messageSource.getMessage(
+                "ask-locale", null,
+                locale
+        ));
+        Locale result = Locale.forLanguageTag(scanner.nextLine());
+        if (!(result.equals(Locale.forLanguageTag("ru-RU")) || result.equals(Locale.forLanguageTag("en-EN")))) {
+            System.out.println("Локаль не предусмотрена в программе, устанавливаю язык ru-RU.");
+            return Locale.forLanguageTag("ru-RU");
+        }
+        return result;
     }
 }

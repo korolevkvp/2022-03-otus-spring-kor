@@ -2,6 +2,8 @@ package ru.otus.spring.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.context.MessageSource;
 
 import java.io.FileNotFoundException;
 
@@ -13,7 +15,7 @@ class QuestionServiceImplTest {
     @DisplayName("должен выбрасывать исключение FileNotFoundException, если не указано имя файла")
     @Test
     void shouldThrowFileNotFoundException() {
-        QuestionServiceImpl service = new QuestionServiceImpl();
+        QuestionServiceImpl service = new QuestionServiceImpl(Mockito.mock(MessageSource.class));
 
         assertThrows(FileNotFoundException.class, service::getQuestions);
     }
