@@ -1,29 +1,44 @@
 package ru.otus.spring.service;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
-import ru.otus.spring.domain.Question;
 import ru.otus.spring.dao.QuestionReader;
+import ru.otus.spring.domain.Question;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
-@PropertySource("/application.properties")
+@ConfigurationProperties(prefix = "service")
 public class QuestionServiceImpl implements QuestionService {
 
-    @Value("${questionFile}")
-    private String fileName;
 
-    @Value("${winScore}")
+    private String fileName;
     private int winScore;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public int getWinScore() {
+        return winScore;
+    }
+
+    public void setWinScore(int winScore) {
+        this.winScore = winScore;
+    }
 
     @Override
     public List<Question> getQuestions() throws IOException {
-            return QuestionReader.readQuestions(fileName);
+        return QuestionReader.readQuestions(fileName);
     }
 
     @Override
