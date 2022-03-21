@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2022-03-21--Create-books_table
+      author: vkorolev
+      createTable:
+        tableName: books
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_books
+        - column:
+            name: title
+            type: varchar(100)
+        - column:
+            name: authorId
+            type: bigint
+        - column:
+            name: genreId
+            type: bigint
