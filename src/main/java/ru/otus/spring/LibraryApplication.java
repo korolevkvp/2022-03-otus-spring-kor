@@ -9,12 +9,12 @@ import java.sql.SQLException;
 
 @EnableAspectJAutoProxy
 @SpringBootApplication
-public class Application {
+public class LibraryApplication {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
-        SpringApplication.run(Application.class, args);
-        Console.main(args);
+        SpringApplication.run(LibraryApplication.class, args);
+//        Console.main(args);
     }
 
 }
