@@ -23,7 +23,7 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
-    public void insert(Book book) {
+    public void save(Book book) {
         jdbc.update("insert into books (id, `title`, `rating`, `authorId`, `genreId`) values (:id, :title, :rating, :authorId, :genreId)",
                 Map.of("id", book.getId(), "title", book.getTitle(), "rating", book.getRating(), "authorId", book.getAuthorId(), "genreId", book.getAuthorId()));
     }

@@ -9,7 +9,7 @@ public interface BookDao {
 
     int count();
 
-    void insert(Book author);
+    void save(Book author);
 
     Book getById(long id);
 

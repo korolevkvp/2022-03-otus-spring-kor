@@ -8,7 +8,7 @@ public interface AuthorDao {
 
     int count();
 
-    void insert(Author author);
+    void save(Author author);
 
     Author getById(long id);
 

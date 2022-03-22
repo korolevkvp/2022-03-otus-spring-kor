@@ -8,7 +8,7 @@ public interface GenreDao {
 
     int count();
 
-    void insert(Genre author);
+    void save(Genre author);
 
     Genre getById(long id);
 
