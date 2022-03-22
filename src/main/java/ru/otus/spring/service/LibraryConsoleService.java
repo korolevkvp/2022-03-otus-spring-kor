@@ -49,12 +49,20 @@ public class LibraryConsoleService implements LibraryService {
     }
 
     @Override
-    public void deleteBookById(Long id) {
-
+    public Book findBookById(Long id) {
+        return bookDao.getById(id);
     }
 
     @Override
-    public void createBook(BookCreate bookCreate) {
+    public void deleteBookById(Long id) {
+        bookDao.deleteById(id);
+    }
 
+    @Override
+    public Book createBook(BookCreate bookCreate) {
+        Book book = bookMapper.bookCreateToBook(bookCreate);
+        Long id = bookDao.save(book);
+        book.setId(id);
+        return book;
     }
 }
