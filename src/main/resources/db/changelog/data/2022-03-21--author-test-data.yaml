@@ -6,9 +6,9 @@ databaseChangeLog:
       runOnChange: true
       loadUpdateData:
         primaryKey: id
-        file: 2022-03-21--author-data.csv
+        file: db/changelog/data/data/2022-03-21--author-data.csv
         relativeToChangeLogFile: true
-        separator: ,
-        quotChar: "
+        separator: ","
+        quotChar: '"'
         encoding: UTF-8
         tableName: authors
