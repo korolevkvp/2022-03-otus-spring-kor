@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2022-03-21--book-test-data
+      author: vkorolev
+      context: test
+      runOnChange: true
+      loadUpdateData:
+        primaryKey: id
+        file: 2022-03-21--book-data.csv
+        relativeToChangeLogFile: true
+        separator: ,
+        quotChar: "
+        encoding: UTF-8
+        tableName: books

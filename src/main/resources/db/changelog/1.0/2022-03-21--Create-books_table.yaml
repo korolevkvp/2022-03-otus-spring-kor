@@ -17,6 +17,9 @@ databaseChangeLog:
             name: title
             type: varchar(100)
         - column:
+            name: rating
+            type: int
+        - column:
             name: authorId
             type: bigint
         - column:
