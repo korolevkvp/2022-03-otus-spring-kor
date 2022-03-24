@@ -1,10 +1,12 @@
 package ru.otus.spring.dao;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.domain.Genre;
+import ru.otus.spring.exception.GenreNotFoundException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,7 +44,12 @@ public class GenreDaoJdbc implements GenreDao{
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(long id) throws GenreNotFoundException {
+        try {
+            getById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new GenreNotFoundException(id);
+        }
         Map<String, Object> params = Collections.singletonMap("id", id);
         jdbc.update("delete from genres where id = :id", params);
     }

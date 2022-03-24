@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.EmptyResultDataAccessException;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.exception.BookNotFoundException;
 
@@ -17,13 +18,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Import(BookDaoJdbc.class)
 class BookDaoJdbcTest {
 
+    private final long ID = 1L;
+
     @Autowired
     private BookDaoJdbc dao;
 
     @BeforeEach
     void initDeleteBook() {
         try {
-            dao.deleteById(1);
+            dao.deleteById(ID);
         } catch (BookNotFoundException ignored) {}
     }
     @DisplayName("должен корректно считать количество книг")
@@ -37,28 +40,42 @@ class BookDaoJdbcTest {
         assertThat(after).isEqualTo(before +  1);
     }
 
-    @DisplayName("должен корректно выполнять сохранение")
+    @DisplayName("должен корректно выполнять сохранение книги")
     @Test
     void shouldCorrectSaveBook() {
         dao.save(book());
 
-        assertThat(dao.getById(1)).isEqualTo(book());
+        assertThat(dao.getById(ID)).isEqualTo(book());
     }
 
+    @DisplayName("должен корректно получать книгу по идентификатору")
     @Test
-    void getById() {
+    void shouldCorrectGetBookById() {
+        dao.save(book());
+
+        assertThat(dao.getById(ID)).isEqualTo(book());
     }
 
+    @DisplayName("должен корректно получать список книг")
     @Test
-    void getAll() {
+    void shouldCorrectGetAllBooks() {
+        dao.save(book());
+
+        assertThat(dao.getAll()).isNotNull().contains(book());
     }
 
+    @DisplayName("должен корректно удалять книгу по идентификатору")
     @Test
-    void deleteById() {
+    void shouldCorrectDeleteBookById() throws BookNotFoundException {
         assertThrows(BookNotFoundException.class, () -> dao.deleteById(1));
+
+        dao.save(book());
+        dao.deleteById(ID);
+
+        assertThrows(EmptyResultDataAccessException.class, () -> dao.getById(1));
     }
 
     private Book book() {
-        return new Book(1L,"Buratino", 10, 3L, 2L);
+        return new Book(ID,"Buratino", 10, 3L, 2L);
     }
 }
