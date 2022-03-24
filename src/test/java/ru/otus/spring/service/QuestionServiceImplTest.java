@@ -36,10 +36,13 @@ class QuestionServiceImplTest {
         assertThat(service.getQuestions()).isNotNull().isInstanceOf(List.class);
     }
 
-    @DisplayName("Должен корректно устанавливать количество победных очков")
+    @DisplayName("Должен корректно проводить тест")
     @Test
     void shouldCorrectStartQuiz() {
         service.setFileName(fileName);
+        String input = "test\ntest\ntest\ntest\ntest\ntest";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
 
         assertDoesNotThrow(() -> service.startQuiz());
     }
@@ -48,9 +51,6 @@ class QuestionServiceImplTest {
     @Test
     void shouldCorrectSetFileName() {
         service.setFileName(fileName);
-        String input = "2\n4\n1\n200\n0\n3";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
 
         assertThat(service.getFileName()).isEqualTo(fileName);
     }
