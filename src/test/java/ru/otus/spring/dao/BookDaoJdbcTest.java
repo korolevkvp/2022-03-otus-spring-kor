@@ -10,6 +10,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.exception.BookNotFoundException;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -61,7 +63,7 @@ class BookDaoJdbcTest {
     void shouldCorrectGetAllBooks() {
         dao.save(book());
 
-        assertThat(dao.getAll()).isNotNull().contains(book());
+        assertThat(dao.getAll()).isNotEmpty().isInstanceOf(List.class).contains(book());
     }
 
     @DisplayName("должен корректно удалять книгу по идентификатору")

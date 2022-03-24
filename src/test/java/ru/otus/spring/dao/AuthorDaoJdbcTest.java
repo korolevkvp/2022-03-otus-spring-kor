@@ -29,6 +29,7 @@ class AuthorDaoJdbcTest {
             dao.deleteById(ID);
         } catch (AuthorNotFoundException ignored) {}
     }
+
     @DisplayName("должен корректно считать количество авторов")
     @Test
     void shouldCorrectCountAuthors() {
