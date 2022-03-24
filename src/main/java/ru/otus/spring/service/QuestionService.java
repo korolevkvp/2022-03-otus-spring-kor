@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface QuestionService {
 
-    Question getByName(String name);
-
     List<Question> getQuestions() throws IOException;
+
+    void startQuiz(List<Question> questions);
 }

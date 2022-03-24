@@ -1,22 +1,20 @@
 package ru.otus.spring;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import ru.otus.spring.domain.Question;
 import ru.otus.spring.service.QuestionService;
 
 import java.io.IOException;
 import java.util.List;
 
+@ComponentScan
 public class Main {
 
-    public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring-context.xml");
+    public static void main(String[] args) throws IOException {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
         QuestionService service = context.getBean(QuestionService.class);
-        try {
-            List<Question> questions = service.getQuestions();
-            questions.forEach(question -> System.out.println(question.getData()));
-        } catch (IOException e) {
-            System.out.println("Файл с вопросами не найден.");
-        }
+        List<Question> questions = service.getQuestions();
+        service.startQuiz(questions);
     }
 }
