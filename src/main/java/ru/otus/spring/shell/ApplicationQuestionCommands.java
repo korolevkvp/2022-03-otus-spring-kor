@@ -15,6 +15,6 @@ public class ApplicationQuestionCommands {
 
     @ShellMethod(value = "Start quiz", key = {"q", "quiz"})
     public void quiz() throws IOException {
-        questionService.startQuiz(questionService.getQuestions());
+        questionService.startQuiz();
     }
 }

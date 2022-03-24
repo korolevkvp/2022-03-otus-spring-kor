@@ -9,5 +9,5 @@ public interface QuestionService {
 
     List<Question> getQuestions() throws IOException;
 
-    void startQuiz(List<Question> questions);
+    void startQuiz() throws IOException;
 }
