@@ -9,6 +9,7 @@ import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.BookCreate;
 import ru.otus.spring.domain.Genre;
+import ru.otus.spring.exception.BookNotFoundException;
 import ru.otus.spring.mapper.BookMapper;
 
 import java.util.List;
@@ -40,8 +41,11 @@ public class LibraryConsoleService implements LibraryService {
 
     @Override
     public Book updateBookById(Long id, BookCreate bookCreate) {
-        bookDao.getById(id);
-        bookDao.deleteById(id);
+        if (bookDao.getById(id) != null) {
+            try {
+                bookDao.deleteById(id);
+            } catch (BookNotFoundException ignored) {}
+        }
         Book book = bookMapper.bookCreateToBook(bookCreate);
         book.setId(id);
         bookDao.save(book);
@@ -55,7 +59,11 @@ public class LibraryConsoleService implements LibraryService {
 
     @Override
     public void deleteBookById(Long id) {
-        bookDao.deleteById(id);
+        try {
+            bookDao.deleteById(id);
+        } catch (BookNotFoundException e) {
+            System.out.println(e);
+        }
     }
 
     @Override

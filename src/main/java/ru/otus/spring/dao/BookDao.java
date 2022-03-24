@@ -1,6 +1,7 @@
 package ru.otus.spring.dao;
 
 import ru.otus.spring.domain.Book;
+import ru.otus.spring.exception.BookNotFoundException;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ public interface BookDao {
 
     List<Book> getAll();
 
-    void deleteById(long id);
+    void deleteById(long id) throws BookNotFoundException;
 
 }

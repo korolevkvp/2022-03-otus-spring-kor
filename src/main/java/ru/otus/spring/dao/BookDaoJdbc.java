@@ -1,6 +1,7 @@
 package ru.otus.spring.dao;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -8,6 +9,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.domain.Book;
+import ru.otus.spring.exception.BookNotFoundException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -57,7 +59,12 @@ public class BookDaoJdbc implements BookDao {
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(long id) throws BookNotFoundException {
+        try {
+            getById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new BookNotFoundException(id);
+        }
         Map<String, Object> params = Collections.singletonMap("id", id);
         jdbc.update("delete from books where id = :id", params);
     }
