@@ -8,3 +8,7 @@
 * Spring Boot
 * AOP, Spring AOP
 * Продвинутая конфигурация Spring-приложений
+
+## Второй модуль
+* DAO на Spring JDBC. Системы миграции.
+* Hibernate, JPQL, Spring ORM, DAO на основе Spring ORM и JPA
