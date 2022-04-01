@@ -2,6 +2,7 @@ package ru.otus.spring.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.domain.Book;
+import ru.otus.spring.exception.BookNotFoundException;
 
 import javax.persistence.*;
 import java.util.List;
@@ -53,11 +54,15 @@ public class BookRepositoryJpaImpl implements BookRepositoryJpa {
     }
 
     @Override
-    public void deleteById(long id) {
-        Query query = em.createQuery("delete " +
-                "from Book b " +
-                "where b.id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+    public void deleteById(long id) throws BookNotFoundException {
+        try {
+            Query query = em.createQuery("delete " +
+                    "from Book b " +
+                    "where b.id = :id");
+            query.setParameter("id", id);
+            query.executeUpdate();
+        } catch (Exception e) {
+            throw new BookNotFoundException(id);
+        }
     }
 }
