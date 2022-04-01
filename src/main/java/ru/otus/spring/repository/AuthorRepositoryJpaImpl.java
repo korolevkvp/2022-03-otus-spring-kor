@@ -6,6 +6,7 @@ import ru.otus.spring.domain.Book;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
@@ -43,5 +44,14 @@ public class AuthorRepositoryJpaImpl implements AuthorRepositoryJpa {
                 Author.class);
         query.setParameter("name", name);
         return query.getResultList();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Query query = em.createQuery("delete " +
+                "from Author a " +
+                "where a.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }

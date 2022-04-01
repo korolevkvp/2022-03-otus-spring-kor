@@ -5,15 +5,14 @@ import org.junit.jupiter.api.Test;
 import ru.otus.spring.domain.BookCreate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Конвертер для BookCreate")
-class BookCreateConverterTest {
+class BookConverterTest {
 
     @DisplayName("должен получать BookCreate из строки")
     @Test
     void shouldGetBookCreateFromString() {
-        BookCreateConverter converter = new BookCreateConverter();
+        BookConverter converter = new BookConverter();
         String string = "Buratino,8,4,1";
         BookCreate bookCreate = new BookCreate("Buratino", 8, 4L, 1L);
 

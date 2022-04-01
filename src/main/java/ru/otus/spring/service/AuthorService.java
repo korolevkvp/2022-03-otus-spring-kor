@@ -7,13 +7,15 @@ import java.util.List;
 
 public interface AuthorService {
 
-    List<Author> findAllAuthors();
+    List<Author> findAll();
 
-    Author updateAuthorById(Author author);
+    Author updateById(Author author) throws AuthorNotFoundException;
 
-    Author findAuthorById(Long id) throws AuthorNotFoundException;
+    Author findById(Long id) throws AuthorNotFoundException;
 
-    void deleteAuthorById(Long id) throws AuthorNotFoundException;
+    List<Author> findByName(String name);
 
-    Author createAuthor(Author author);
+    void deleteById(Long id) throws AuthorNotFoundException;
+
+    Author create(Author author);
 }

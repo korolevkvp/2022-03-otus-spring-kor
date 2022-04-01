@@ -8,13 +8,12 @@ import java.util.List;
 
 public interface CommentService {
 
-    List<Comment> findAllComments();
+    List<Comment> findAll();
 
-    Comment updateCommentById(Comment comment);
 
-    Comment findCommentById(Long id) throws CommentNotFoundException;
+    Comment findById(Long id) throws CommentNotFoundException;
 
-    void deleteCommentById(Long id) throws CommentNotFoundException;
+    List<Comment> findByAuthor(String author);
 
-    Comment createComment(Comment comment);
+    Comment create(Comment comment);
 }

@@ -37,12 +37,12 @@ public class CommentRepositoryJpaImpl implements CommentRepositoryJpa {
     }
 
     @Override
-    public List<Comment> findByName(String name) {
+    public List<Comment> findByAuthor(String author) {
         TypedQuery<Comment> query = em.createQuery("select c " +
                         "from Comment c " +
-                        "where c.name = :name",
+                        "where c.author = :author",
                 Comment.class);
-        query.setParameter("name", name);
+        query.setParameter("author", author);
         return query.getResultList();
     }
 }

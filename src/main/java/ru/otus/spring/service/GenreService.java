@@ -1,5 +1,6 @@
 package ru.otus.spring.service;
 
+import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Genre;
 import ru.otus.spring.exception.GenreNotFoundException;
 
@@ -7,13 +8,15 @@ import java.util.List;
 
 public interface GenreService {
 
-    List<Genre> findAllGenres();
+    List<Genre> findAll();
 
-    Genre updateGenreById(Genre genre);
+    Genre updateById(Genre genre) throws GenreNotFoundException;
 
-    Genre findGenreById(Long id) throws GenreNotFoundException;
+    Genre findById(Long id) throws GenreNotFoundException;
 
-    void deleteGenreById(Long id) throws GenreNotFoundException;
+    void deleteById(Long id) throws GenreNotFoundException;
 
-    Genre createGenre(Genre genre);
+    List<Genre> findByName(String name);
+
+    Genre create(Genre genre);
 }

@@ -17,12 +17,12 @@ public class BookConsoleService implements BookService {
 
 
     @Override
-    public List<Book> findAllBooks() {
+    public List<Book> findAll() {
         return bookRepositoryJpa.findAll();
     }
 
     @Override
-    public Book updateBookById(Book book) {
+    public Book updateById(Book book) {
         if (bookRepositoryJpa.findById(book.getId()).isPresent()) {
             try {
                 bookRepositoryJpa.deleteById(book.getId());
@@ -34,7 +34,7 @@ public class BookConsoleService implements BookService {
     }
 
     @Override
-    public Book findBookById(Long id) throws BookNotFoundException {
+    public Book findById(Long id) throws BookNotFoundException {
         Optional<Book> b = bookRepositoryJpa.findById(id);
         if (b.isPresent()) {
             return b.get();
@@ -44,12 +44,12 @@ public class BookConsoleService implements BookService {
     }
 
     @Override
-    public void deleteBookById(Long id) throws BookNotFoundException {
+    public void deleteById(Long id) throws BookNotFoundException {
         bookRepositoryJpa.deleteById(id);
     }
 
     @Override
-    public Book createBook(Book book) {
+    public Book create(Book book) {
         book = bookRepositoryJpa.save(book);
         return book;
     }

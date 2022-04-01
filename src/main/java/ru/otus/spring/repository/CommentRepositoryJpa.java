@@ -10,5 +10,5 @@ public interface CommentRepositoryJpa {
     Optional<Comment> findById(long id);
 
     List<Comment> findAll();
-    List<Comment> findByName(String name);
+    List<Comment> findByAuthor(String author);
 }

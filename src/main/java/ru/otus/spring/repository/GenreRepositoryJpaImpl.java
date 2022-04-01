@@ -3,9 +3,12 @@ package ru.otus.spring.repository;
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Genre;
+import ru.otus.spring.exception.BookNotFoundException;
+import ru.otus.spring.exception.GenreNotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
@@ -44,5 +47,14 @@ public class GenreRepositoryJpaImpl implements GenreRepositoryJpa {
                 Genre.class);
         query.setParameter("name", name);
         return query.getResultList();
+    }
+
+    @Override
+    public void deleteById(long id) throws GenreNotFoundException {
+        Query query = em.createQuery("delete " +
+                "from Genre g " +
+                "where g.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }

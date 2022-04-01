@@ -44,25 +44,21 @@ public class BookRepositoryJpaImpl implements BookRepositoryJpa {
     }
 
     @Override
-    public void updateNameById(long id, String name) {
+    public void updateTitleById(long id, String title) {
         Query query = em.createQuery("update Book b " +
-                "set b.name = :name " +
+                "set b.title = :title " +
                 "where b.id = :id");
-        query.setParameter("name", name);
+        query.setParameter("title", title);
         query.setParameter("id", id);
         query.executeUpdate();
     }
 
     @Override
-    public void deleteById(long id) throws BookNotFoundException {
-        try {
-            Query query = em.createQuery("delete " +
-                    "from Book b " +
-                    "where b.id = :id");
-            query.setParameter("id", id);
-            query.executeUpdate();
-        } catch (Exception e) {
-            throw new BookNotFoundException(id);
-        }
+    public void deleteById(long id) {
+        Query query = em.createQuery("delete " +
+                "from Book b " +
+                "where b.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }

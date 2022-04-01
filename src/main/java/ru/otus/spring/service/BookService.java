@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface BookService {
 
-    List<Book> findAllBooks();
+    List<Book> findAll();
 
-    Book updateBookById(Book book);
+    Book updateById(Book book);
 
-    Book findBookById(Long id) throws BookNotFoundException;
+    Book findById(Long id) throws BookNotFoundException;
 
-    void deleteBookById(Long id) throws BookNotFoundException;
+    void deleteById(Long id) throws BookNotFoundException;
 
-    Book createBook(Book book);
+    Book create(Book book);
 }

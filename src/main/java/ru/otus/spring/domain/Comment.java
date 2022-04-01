@@ -18,9 +18,6 @@ public class Comment {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "bookid")
-    private Long bookId;
-
     @Column(name = "author")
     private String author;
 
