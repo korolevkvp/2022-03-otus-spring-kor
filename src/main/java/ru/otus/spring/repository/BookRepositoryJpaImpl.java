@@ -29,23 +29,35 @@ public class BookRepositoryJpaImpl implements BookRepositoryJpa {
 
     @Override
     public List<Book> findAll() {
-        EntityGraph<?> entityGraph = em.getEntityGraph("")
-        TypedQuery<Book> query = em.createQuery("select b from Book b ", Book.class);
-        return query.getResultList();
+        return em.createQuery("select b from Book b ", Book.class).getResultList();
     }
 
     @Override
     public List<Book> findByName(String name) {
-        return null;
+        TypedQuery<Book> query = em.createQuery("select b " +
+                "from Book b " +
+                "where b.name = :name",
+                Book.class);
+        query.setParameter("name", name);
+        return query.getResultList();
     }
 
     @Override
     public void updateNameById(long id, String name) {
-
+        Query query = em.createQuery("update Book b " +
+                "set b.name = :name " +
+                "where b.id = :id");
+        query.setParameter("name", name);
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 
     @Override
     public void deleteById(long id) {
-
+        Query query = em.createQuery("delete " +
+                "from Book b " +
+                "where b.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }
