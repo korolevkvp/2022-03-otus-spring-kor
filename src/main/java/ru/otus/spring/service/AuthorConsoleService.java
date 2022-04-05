@@ -2,6 +2,7 @@ package ru.otus.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Author;
 import ru.otus.spring.exception.AuthorNotFoundException;
 import ru.otus.spring.repository.AuthorRepositoryJpa;
@@ -22,6 +23,7 @@ public class AuthorConsoleService implements AuthorService {
     }
 
     @Override
+    @Transactional
     public Author updateById(Author author) throws AuthorNotFoundException {
         if (authorRepositoryJpa.findById(author.getId()).isPresent()) {
             authorRepositoryJpa.deleteById(author.getId());
@@ -46,11 +48,13 @@ public class AuthorConsoleService implements AuthorService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) throws AuthorNotFoundException {
         authorRepositoryJpa.deleteById(id);
     }
 
     @Override
+    @Transactional
     public Author create(Author author) {
         author = authorRepositoryJpa.save(author);
         return author;

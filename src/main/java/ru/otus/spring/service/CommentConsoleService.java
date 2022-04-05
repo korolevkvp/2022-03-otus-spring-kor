@@ -2,6 +2,7 @@ package ru.otus.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Comment;
 import ru.otus.spring.exception.CommentNotFoundException;
 import ru.otus.spring.repository.CommentRepositoryJpa;
@@ -38,6 +39,7 @@ public class CommentConsoleService implements CommentService {
     }
 
     @Override
+    @Transactional
     public Comment create(Comment comment) {
         comment = commentRepositoryJpa.save(comment);
         return comment;

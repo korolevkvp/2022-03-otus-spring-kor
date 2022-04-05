@@ -2,6 +2,7 @@ package ru.otus.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.exception.BookNotFoundException;
 import ru.otus.spring.repository.BookRepositoryJpa;
@@ -22,6 +23,7 @@ public class BookConsoleService implements BookService {
     }
 
     @Override
+    @Transactional
     public Book updateById(Book book) {
         if (bookRepositoryJpa.findById(book.getId()).isPresent()) {
             try {
@@ -44,11 +46,13 @@ public class BookConsoleService implements BookService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) throws BookNotFoundException {
         bookRepositoryJpa.deleteById(id);
     }
 
     @Override
+    @Transactional
     public Book create(Book book) {
         book = bookRepositoryJpa.save(book);
         return book;

@@ -2,6 +2,7 @@ package ru.otus.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Genre;
 import ru.otus.spring.exception.GenreNotFoundException;
 import ru.otus.spring.repository.GenreRepositoryJpa;
@@ -22,6 +23,7 @@ public class GenreConsoleService implements GenreService {
     }
 
     @Override
+    @Transactional
     public Genre updateById(Genre genre) throws GenreNotFoundException {
         if (genreRepositoryJpa.findById(genre.getId()).isPresent()) {
             genreRepositoryJpa.deleteById(genre.getId());
@@ -46,11 +48,13 @@ public class GenreConsoleService implements GenreService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) throws GenreNotFoundException {
         genreRepositoryJpa.deleteById(id);
     }
 
     @Override
+    @Transactional
     public Genre create(Genre genre) {
         genre = genreRepositoryJpa.save(genre);
         return genre;
