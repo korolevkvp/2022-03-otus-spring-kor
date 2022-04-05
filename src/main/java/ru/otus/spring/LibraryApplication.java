@@ -13,7 +13,7 @@ public class LibraryApplication {
 
     public static void main(String[] args) throws SQLException {
 
-        Console.main(args);
+        // Console.main(args);
         SpringApplication.run(LibraryApplication.class, args);
     }
 

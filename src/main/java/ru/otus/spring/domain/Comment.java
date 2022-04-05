@@ -22,6 +22,6 @@ public class Comment {
     private String author;
 
     @Column(name = "content")
-    private Long content;
+    private String content;
 
 }
