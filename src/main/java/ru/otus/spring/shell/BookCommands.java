@@ -37,7 +37,7 @@ public class BookCommands {
         bookService.deleteById(id);
     }
 
-    @ShellMethod(value = "Create book", key = {"cb", "add_book"})
+    @ShellMethod(value = "Create book", key = {"cb", "create_book"})
     public Book createBook() {
         return bookService.create(readerService.readBook());
     }

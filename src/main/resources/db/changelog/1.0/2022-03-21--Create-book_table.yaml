@@ -1,9 +1,9 @@
 databaseChangeLog:
   - changeSet:
-      id: 2022-03-21--Create-books_table
+      id: 2022-03-21--Create-book_table
       author: vkorolev
       createTable:
-        tableName: books
+        tableName: book
         columns:
         - column:
             name: id
@@ -12,7 +12,7 @@ databaseChangeLog:
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: pk_books
+              primaryKeyName: pk_book
         - column:
             name: title
             type: varchar(100)
@@ -20,8 +20,11 @@ databaseChangeLog:
             name: rating
             type: int
         - column:
-            name: authorId
+            name: authorid
             type: bigint
         - column:
-            name: genreId
+            name: genreid
+            type: bigint
+        - column:
+            name: commentid
             type: bigint

@@ -11,4 +11,4 @@ databaseChangeLog:
         separator: ","
         quotChar: '"'
         encoding: UTF-8
-        tableName: books
+        tableName: book

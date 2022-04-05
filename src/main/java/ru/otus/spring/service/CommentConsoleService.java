@@ -22,6 +22,11 @@ public class CommentConsoleService implements CommentService {
         return commentRepositoryJpa.findAll();
     }
 
+    @Override
+    public void deleteById(Long id) throws CommentNotFoundException {
+        commentRepositoryJpa.deleteById(id);
+    }
+
 
     @Override
     public Comment findById(Long id) throws CommentNotFoundException {

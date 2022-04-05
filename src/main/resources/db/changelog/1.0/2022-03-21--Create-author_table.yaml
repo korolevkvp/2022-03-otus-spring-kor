@@ -1,9 +1,9 @@
 databaseChangeLog:
   - changeSet:
-      id: 2022-03-21--Create-genres_table
+      id: 2022-03-21--Create-author_table
       author: vkorolev
       createTable:
-        tableName: genres
+        tableName: author
         columns:
         - column:
             name: id
@@ -12,7 +12,10 @@ databaseChangeLog:
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: pk_genres
+              primaryKeyName: pk_author
         - column:
             name: name
+            type: varchar(50)
+        - column:
+            name: surname
             type: varchar(50)
