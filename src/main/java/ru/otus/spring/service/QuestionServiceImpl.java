@@ -17,10 +17,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class QuestionServiceImpl implements QuestionService {
 
 
+    private static Locale locale = Locale.getDefault();
+    private final MessageSource messageSource;
     private String fileName;
     private int winScore;
-
-    private final MessageSource messageSource;
 
     public QuestionServiceImpl(MessageSource messageSource) {
         this.messageSource = messageSource;
@@ -44,15 +44,15 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<Question> getQuestions() throws IOException {
-        return QuestionReader.readQuestions(fileName);
+        return QuestionReader.readQuestions(fileName.replaceAll("\\.", "_" + locale + "."));
     }
 
     @Override
-    public void startQuiz(List<Question> questions) {
+    public void startQuiz() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        Locale locale = askLocale(scanner);
+        locale = askLocale(scanner);
         AtomicInteger score = new AtomicInteger(0);
-        questions.forEach(question -> {
+        getQuestions().forEach(question -> {
             System.out.print(messageSource.getMessage("question", null, locale) + question.getQuestion() + "\n$ ");
             if (scanner.nextLine().equals(question.getAnswer())) {
                 System.out.println(messageSource.getMessage("right-answer", null, locale));
