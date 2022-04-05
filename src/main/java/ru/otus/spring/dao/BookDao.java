@@ -13,6 +13,8 @@ public interface BookDao {
 
     Book getById(long id);
 
+    void update(Book book);
+
     List<Book> getAll();
 
     void deleteById(long id) throws BookNotFoundException;

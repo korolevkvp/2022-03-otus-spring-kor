@@ -21,13 +21,7 @@ public class BookConsoleService implements BookService {
 
     @Override
     public Book updateById(Book book) {
-        if (bookDao.getById(book.getId()) != null) {
-            try {
-                bookDao.deleteById(book.getId());
-            } catch (BookNotFoundException ignored) {
-            }
-        }
-        bookDao.save(book);
+        bookDao.update(book);
         return book;
     }
 

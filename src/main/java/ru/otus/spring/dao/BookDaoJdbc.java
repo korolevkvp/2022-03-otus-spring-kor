@@ -33,18 +33,31 @@ public class BookDaoJdbc implements BookDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("title", book.getTitle());
         params.addValue("rating", book.getRating());
-        params.addValue("authorId", book.getAuthorId());
-        params.addValue("genreId", book.getGenreId());
+        params.addValue("authorid", book.getAuthorId());
+        params.addValue("genreid", book.getGenreId());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         if (book.getId() == null) {
-            jdbc.update("insert into books (`title`, `rating`, `authorId`, `genreId`) values (:title, :rating, :authorId, :genreId)",
+            jdbc.update("insert into books (`title`, `rating`, `authorid`, `genreid`) values (:title, :rating, :authorid, :genreid)",
                    params, keyHolder);
         } else {
             params.addValue("id", book.getId());
-            jdbc.update("insert into books (id, `title`, `rating`, `authorId`, `genreId`) values (:id, :title, :rating, :authorId, :genreId)",
+            jdbc.update("insert into books (id, `title`, `rating`, `authorid`, `genreid`) values (:id, :title, :rating, :authorid, :genreid)",
                     params, keyHolder);
         }
         return Objects.requireNonNull(keyHolder.getKey()).longValue();
+    }
+
+    @Override
+    public void update(Book book) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", book.getId());
+        params.addValue("title", book.getTitle());
+        params.addValue("rating", book.getRating());
+        params.addValue("authorid", book.getAuthorId());
+        params.addValue("genreid", book.getGenreId());
+        jdbc.update("update books " +
+                "set title = :title, rating = :rating, authorid = :authorid, genreid = :genreid " +
+                "where id = :id", params);
     }
 
     @Override
@@ -75,8 +88,8 @@ public class BookDaoJdbc implements BookDao {
             Long id =resultSet.getLong("id");
             String title = resultSet.getString("title");
             Integer rating = resultSet.getInt("rating");
-            Long authorId = resultSet.getLong("authorId");
-            Long genreId = resultSet.getLong("genreId");
+            Long authorId = resultSet.getLong("authorid");
+            Long genreId = resultSet.getLong("genreid");
             return new Book(id, title, rating, authorId, genreId);
         }
     }
