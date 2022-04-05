@@ -2,7 +2,6 @@ package ru.otus.spring.shell.converter;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import ru.otus.spring.domain.BookCreate;
 
 @Component
 public class BookCreateConverter implements Converter<String, BookCreate> {
