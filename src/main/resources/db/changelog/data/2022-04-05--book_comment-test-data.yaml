@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2022-04-05--book_comment-test-data
+      author: vkorolev
+      context: test
+      runOnChange: true
+      loadUpdateData:
+        primaryKey: bookid
+        file: db/changelog/data/data/2022-04-05--book_comment-data.csv
+        relativeToChangeLogFile: true
+        separator: ","
+        quotChar: '"'
+        encoding: UTF-8
+        tableName: book_comment
