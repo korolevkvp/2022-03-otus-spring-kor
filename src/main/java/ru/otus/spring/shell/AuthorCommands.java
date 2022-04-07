@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import ru.otus.spring.domain.Author;
-import ru.otus.spring.domain.Author;
 import ru.otus.spring.exception.AuthorNotFoundException;
-import ru.otus.spring.service.AuthorService;
 import ru.otus.spring.service.AuthorService;
 import ru.otus.spring.service.ReaderService;
 
@@ -25,14 +23,23 @@ public class AuthorCommands {
     }
 
     @ShellMethod(value = "Find author by id", key = {"fa", "find_author"})
-    public Author findAuthorById(Long id) throws AuthorNotFoundException {
-        return authorService.findById(id);
+    public Author findAuthorById(Long id) {
+        try {
+            return authorService.findById(id);
+        } catch (AuthorNotFoundException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
 
     @ShellMethod(value = "Delete author by id", key = {"da", "delete_author"})
-    public void deleteAuthorById(Long id) throws AuthorNotFoundException {
-        authorService.deleteById(id);
+    public void deleteAuthorById(Long id) {
+        try {
+            authorService.deleteById(id);
+        } catch (AuthorNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @ShellMethod(value = "Create author", key = {"ca", "create_author"})

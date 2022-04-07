@@ -6,7 +6,6 @@ import org.springframework.shell.standard.ShellMethod;
 import ru.otus.spring.domain.Comment;
 import ru.otus.spring.exception.CommentNotFoundException;
 import ru.otus.spring.service.CommentService;
-import ru.otus.spring.service.CommentService;
 import ru.otus.spring.service.ReaderService;
 
 import java.util.List;
@@ -24,13 +23,22 @@ public class CommentCommands {
     }
 
     @ShellMethod(value = "Find comment by id", key = {"fc", "find_comment"})
-    public Comment findCommentById(Long id) throws CommentNotFoundException {
-        return commentService.findById(id);
+    public Comment findCommentById(Long id) {
+        try {
+            return commentService.findById(id);
+        } catch (CommentNotFoundException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @ShellMethod(value = "Delete comment by id", key = {"dc", "delete_comment"})
-    public void deleteCommentById(Long id) throws CommentNotFoundException {
-        commentService.deleteById(id);
+    public void deleteCommentById(Long id) {
+        try {
+            commentService.deleteById(id);
+        } catch (CommentNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @ShellMethod(value = "Create comment", key = {"cc", "create_comment"})

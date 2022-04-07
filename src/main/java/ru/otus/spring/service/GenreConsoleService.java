@@ -25,9 +25,7 @@ public class GenreConsoleService implements GenreService {
     @Override
     @Transactional
     public Genre updateById(Genre genre) throws GenreNotFoundException {
-        if (genreRepositoryJpa.findById(genre.getId()).isPresent()) {
-            genreRepositoryJpa.deleteById(genre.getId());
-        }
+        genreRepositoryJpa.deleteById(genre.getId());
         genre = genreRepositoryJpa.save(genre);
         return genre;
     }

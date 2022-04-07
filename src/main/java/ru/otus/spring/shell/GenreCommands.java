@@ -23,13 +23,22 @@ public class GenreCommands {
     }
 
     @ShellMethod(value = "Find genre by id", key = {"fg", "find_genre"})
-    public Genre findGenreById(Long id) throws GenreNotFoundException {
-        return genreService.findById(id);
+    public Genre findGenreById(Long id) {
+        try {
+            return genreService.findById(id);
+        } catch (GenreNotFoundException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @ShellMethod(value = "Delete genre by id", key = {"dg", "delete_genre"})
-    public void deleteGenreById(Long id) throws GenreNotFoundException {
-        genreService.deleteById(id);
+    public void deleteGenreById(Long id) {
+        try {
+            genreService.deleteById(id);
+        } catch (GenreNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @ShellMethod(value = "Create genre", key = {"cg", "create_genre"})

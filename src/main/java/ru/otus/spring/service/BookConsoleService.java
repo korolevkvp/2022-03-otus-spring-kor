@@ -24,13 +24,8 @@ public class BookConsoleService implements BookService {
 
     @Override
     @Transactional
-    public Book updateById(Book book) {
-        if (bookRepositoryJpa.findById(book.getId()).isPresent()) {
-            try {
-                bookRepositoryJpa.deleteById(book.getId());
-            } catch (BookNotFoundException ignored) {
-            }
-        }
+    public Book updateById(Book book) throws BookNotFoundException {
+        bookRepositoryJpa.deleteById(book.getId());
         book = bookRepositoryJpa.save(book);
         return book;
     }
