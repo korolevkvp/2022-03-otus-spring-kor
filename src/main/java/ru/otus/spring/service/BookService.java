@@ -9,7 +9,7 @@ public interface BookService {
 
     List<Book> findAll();
 
-    Book updateById(Book book) throws BookNotFoundException;
+    Book updateById(Long id, Book book) throws BookNotFoundException;
 
     Book findById(Long id) throws BookNotFoundException;
 

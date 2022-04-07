@@ -33,9 +33,9 @@ public class BookCommands {
     }
 
     @ShellMethod(value = "Update book by id", key = {"ub", "update_book"})
-    public Book updateBookById() {
+    public Book updateById(Long id) {
         try {
-            return bookService.updateById(readerService.readBook());
+            return bookService.updateById(id, readerService.readBook());
         } catch (BookNotFoundException e) {
             System.out.println(e.getMessage());
             return null;
@@ -43,7 +43,7 @@ public class BookCommands {
     }
 
     @ShellMethod(value = "Delete book by id", key = {"db", "delete_book"})
-    public void deleteBookById(Long id) {
+    public void deleteById(Long id) {
         try {
             bookService.deleteById(id);
         } catch (BookNotFoundException e) {

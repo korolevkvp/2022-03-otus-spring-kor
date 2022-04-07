@@ -18,8 +18,6 @@ public class ReaderConsoleService implements ReaderService{
     @Override
     public Book readBook() {
         Book book = new Book();
-        System.out.println("\nВведите идентификатор книги\n$ ");
-        book.setId(scanner.nextLong());
         System.out.println("\nВведите название книги (от 1 до 10)\n$ ");
         book.setTitle(scanner.nextLine());
         System.out.println("\nВведите рейтинг книги (от 1 до 10)\n$ ");
@@ -39,8 +37,6 @@ public class ReaderConsoleService implements ReaderService{
     @Override
     public Author readAuthor() {
         Author author = new Author();
-        System.out.println("\nВведите идентификатор автора\n$ ");
-        author.setId(scanner.nextLong());
         System.out.println("\nВведите имя автора\n$ ");
         author.setName(scanner.nextLine());
         System.out.println("\nВведите фамилию автора\n$ ");
@@ -51,8 +47,6 @@ public class ReaderConsoleService implements ReaderService{
     @Override
     public Genre readGenre() {
         Genre genre = new Genre();
-        System.out.println("\nВведите идентификатор жанра\n$ ");
-        genre.setId(scanner.nextLong());
         System.out.println("\nВведите название жанра\n$ ");
         genre.setName(scanner.nextLine());
         return genre;
@@ -61,8 +55,6 @@ public class ReaderConsoleService implements ReaderService{
     @Override
     public Comment readComment() {
         Comment сomment = new Comment();
-        System.out.println("\nВведите идентификатор комментария\n$ ");
-        сomment.setId(scanner.nextLong());
         System.out.println("\nВведите автора комментария\n$ ");
         сomment.setAuthor(scanner.nextLine());
         System.out.println("\nВведите содержимое комментария\n$ ");

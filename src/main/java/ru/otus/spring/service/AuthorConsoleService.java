@@ -23,14 +23,6 @@ public class AuthorConsoleService implements AuthorService {
     }
 
     @Override
-    @Transactional
-    public Author updateById(Author author) throws AuthorNotFoundException {
-        authorRepositoryJpa.deleteById(author.getId());
-        author = authorRepositoryJpa.save(author);
-        return author;
-    }
-
-    @Override
     public Author findById(Long id) throws AuthorNotFoundException {
         Optional<Author> b = authorRepositoryJpa.findById(id);
         if (b.isPresent()) {

@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.exception.BookNotFoundException;
+import ru.otus.spring.repository.AuthorRepositoryJpa;
 import ru.otus.spring.repository.BookRepositoryJpa;
+import ru.otus.spring.repository.CommentRepositoryJpa;
+import ru.otus.spring.repository.GenreRepositoryJpa;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +18,9 @@ import java.util.Optional;
 public class BookConsoleService implements BookService {
 
     private final BookRepositoryJpa bookRepositoryJpa;
+    private final AuthorRepositoryJpa authorRepositoryJpa;
+    private final GenreRepositoryJpa genreRepositoryJpa;
+    private final CommentRepositoryJpa commentRepositoryJpa;
 
 
     @Override
@@ -24,10 +30,10 @@ public class BookConsoleService implements BookService {
 
     @Override
     @Transactional
-    public Book updateById(Book book) throws BookNotFoundException {
-        bookRepositoryJpa.deleteById(book.getId());
-        book = bookRepositoryJpa.save(book);
-        return book;
+    public Book updateById(Long id, Book book) throws BookNotFoundException {
+        bookRepositoryJpa.deleteById(id);
+        book.setId(id);
+        return saveBookWithInnerFields(book);
     }
 
     @Override
@@ -49,6 +55,13 @@ public class BookConsoleService implements BookService {
     @Override
     @Transactional
     public Book create(Book book) {
+        return saveBookWithInnerFields(book);
+    }
+
+    private Book saveBookWithInnerFields(Book book) {
+        if (book.getAuthor() != null) authorRepositoryJpa.save(book.getAuthor());
+        if (book.getGenre() != null) genreRepositoryJpa.save(book.getGenre());
+        if (book.getComments() != null) commentRepositoryJpa.saveAll(book.getComments());
         book = bookRepositoryJpa.save(book);
         return book;
     }

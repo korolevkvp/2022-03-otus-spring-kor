@@ -16,4 +16,6 @@ public interface CommentRepositoryJpa {
     List<Comment> findAll();
 
     List<Comment> findByAuthor(String author);
+
+    List<Comment> saveAll(List<Comment> comments);
 }
