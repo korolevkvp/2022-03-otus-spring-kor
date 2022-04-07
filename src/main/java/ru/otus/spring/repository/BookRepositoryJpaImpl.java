@@ -2,7 +2,6 @@ package ru.otus.spring.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.otus.spring.domain.Book;
-import ru.otus.spring.exception.BookNotFoundException;
 
 import javax.persistence.*;
 import java.util.List;
@@ -30,16 +29,22 @@ public class BookRepositoryJpaImpl implements BookRepositoryJpa {
 
     @Override
     public List<Book> findAll() {
-        return em.createQuery("select b from Book b ", Book.class).getResultList();
+        EntityGraph<?> entityGraph = em.getEntityGraph("book-author-genre-entity-graph");
+
+        TypedQuery<Book> query = em.createQuery("select b from " +
+                        "Book b left join fetch b.comments", Book.class);
+
+        query.setHint("javax.persistence.fetchgraph", entityGraph);
+        return query.getResultList();
     }
 
     @Override
-    public List<Book> findByName(String name) {
+    public List<Book> findByTitle(String title) {
         TypedQuery<Book> query = em.createQuery("select b " +
-                "from Book b " +
-                "where b.name = :name",
+                        "from Book b " +
+                        "where b.title = :title",
                 Book.class);
-        query.setParameter("name", name);
+        query.setParameter("title", title);
         return query.getResultList();
     }
 
