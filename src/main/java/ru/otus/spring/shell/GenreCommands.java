@@ -18,12 +18,12 @@ public class GenreCommands {
     private final ReaderService readerService;
 
     @ShellMethod(value = "Find all genres", key = {"g", "genres"})
-    public List<Genre> findAllGenres() {
+    public List<Genre> findAll() {
         return genreService.findAll();
     }
 
     @ShellMethod(value = "Find genre by id", key = {"fg", "find_genre"})
-    public Genre findGenreById(Long id) {
+    public Genre findById(Long id) {
         try {
             return genreService.findById(id);
         } catch (GenreNotFoundException e) {
@@ -33,16 +33,12 @@ public class GenreCommands {
     }
 
     @ShellMethod(value = "Delete genre by id", key = {"dg", "delete_genre"})
-    public void deleteGenreById(Long id) {
-        try {
-            genreService.deleteById(id);
-        } catch (GenreNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+    public void deleteById(Long id) {
+        genreService.deleteById(id);
     }
 
     @ShellMethod(value = "Create genre", key = {"cg", "create_genre"})
-    public Genre createGenre() {
+    public Genre create() {
         return genreService.create(readerService.readGenre());
     }
 }

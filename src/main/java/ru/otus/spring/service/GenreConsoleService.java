@@ -39,7 +39,7 @@ public class GenreConsoleService implements GenreService {
 
     @Override
     @Transactional
-    public void deleteById(Long id) throws GenreNotFoundException {
+    public void deleteById(Long id) {
         genreRepositoryJpa.deleteById(id);
     }
 

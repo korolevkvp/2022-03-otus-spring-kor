@@ -14,6 +14,6 @@ public interface GenreRepositoryJpa {
 
     List<Genre> findAll();
     List<Genre> findByName(String name);
-    void deleteById(long id) throws GenreNotFoundException;
+    void deleteById(long id);
 
 }

@@ -30,7 +30,7 @@ public class BookConsoleService implements BookService {
 
     @Override
     @Transactional
-    public Book updateById(Long id, Book book) throws BookNotFoundException {
+    public Book updateById(Long id, Book book) {
         bookRepositoryJpa.deleteById(id);
         book.setId(id);
         return saveBookWithInnerFields(book);
@@ -48,7 +48,7 @@ public class BookConsoleService implements BookService {
 
     @Override
     @Transactional
-    public void deleteById(Long id) throws BookNotFoundException {
+    public void deleteById(Long id) {
         bookRepositoryJpa.deleteById(id);
     }
 

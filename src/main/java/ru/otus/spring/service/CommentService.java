@@ -9,7 +9,7 @@ public interface CommentService {
 
     List<Comment> findAll();
 
-    void deleteById(Long id) throws CommentNotFoundException;
+    void deleteById(Long id);
 
     Comment findById(Long id) throws CommentNotFoundException;
 

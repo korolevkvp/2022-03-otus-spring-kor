@@ -23,7 +23,7 @@ public class CommentConsoleService implements CommentService {
     }
 
     @Override
-    public void deleteById(Long id) throws CommentNotFoundException {
+    public void deleteById(Long id) {
         commentRepositoryJpa.deleteById(id);
     }
 

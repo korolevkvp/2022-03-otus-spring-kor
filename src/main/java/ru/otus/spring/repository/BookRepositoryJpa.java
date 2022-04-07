@@ -14,5 +14,5 @@ public interface BookRepositoryJpa {
     List<Book> findByTitle(String name);
 
     void updateTitleById(long id, String name);
-    void deleteById(long id) throws BookNotFoundException;
+    void deleteById(long id);
 }

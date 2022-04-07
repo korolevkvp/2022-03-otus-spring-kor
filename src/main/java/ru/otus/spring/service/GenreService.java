@@ -12,7 +12,7 @@ public interface GenreService {
 
     Genre findById(Long id) throws GenreNotFoundException;
 
-    void deleteById(Long id) throws GenreNotFoundException;
+    void deleteById(Long id);
 
     List<Genre> findByName(String name);
 

@@ -39,7 +39,7 @@ public class AuthorConsoleService implements AuthorService {
 
     @Override
     @Transactional
-    public void deleteById(Long id) throws AuthorNotFoundException {
+    public void deleteById(Long id) {
         authorRepositoryJpa.deleteById(id);
     }
 

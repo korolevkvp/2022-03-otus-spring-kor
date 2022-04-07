@@ -11,7 +11,7 @@ public interface CommentRepositoryJpa {
 
     Optional<Comment> findById(long id);
 
-    void deleteById(Long id) throws CommentNotFoundException;
+    void deleteById(Long id);
 
     List<Comment> findAll();
 

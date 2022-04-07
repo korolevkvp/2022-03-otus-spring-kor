@@ -13,7 +13,7 @@ public interface AuthorService {
 
     List<Author> findByName(String name);
 
-    void deleteById(Long id) throws AuthorNotFoundException;
+    void deleteById(Long id);
 
     Author create(Author author);
 }

@@ -9,11 +9,11 @@ public interface BookService {
 
     List<Book> findAll();
 
-    Book updateById(Long id, Book book) throws BookNotFoundException;
+    Book updateById(Long id, Book book);
 
     Book findById(Long id) throws BookNotFoundException;
 
-    void deleteById(Long id) throws BookNotFoundException;
+    void deleteById(Long id);
 
     Book create(Book book);
 }

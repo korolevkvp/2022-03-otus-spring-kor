@@ -18,12 +18,12 @@ public class BookCommands {
     private final ReaderService readerService;
 
     @ShellMethod(value = "Find all books", key = {"b", "books"})
-    public List<Book> findAllBooks() {
+    public List<Book> findAll() {
         return bookService.findAll();
     }
 
     @ShellMethod(value = "Find book by id", key = {"fb", "find_book"})
-    public Book findBookById(Long id) {
+    public Book findById(Long id) {
         try {
             return bookService.findById(id);
         } catch (BookNotFoundException e) {
@@ -34,25 +34,16 @@ public class BookCommands {
 
     @ShellMethod(value = "Update book by id", key = {"ub", "update_book"})
     public Book updateById(Long id) {
-        try {
-            return bookService.updateById(id, readerService.readBook());
-        } catch (BookNotFoundException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+        return bookService.updateById(id, readerService.readBook());
     }
 
     @ShellMethod(value = "Delete book by id", key = {"db", "delete_book"})
     public void deleteById(Long id) {
-        try {
-            bookService.deleteById(id);
-        } catch (BookNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+        bookService.deleteById(id);
     }
 
     @ShellMethod(value = "Create book", key = {"cb", "create_book"})
-    public Book createBook() {
+    public Book create() {
         return bookService.create(readerService.readBook());
     }
 }

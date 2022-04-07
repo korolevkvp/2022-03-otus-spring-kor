@@ -34,7 +34,7 @@ public class CommentRepositoryJpaImpl implements CommentRepositoryJpa {
     }
 
     @Override
-    public void deleteById(Long id) throws CommentNotFoundException {
+    public void deleteById(Long id) {
         Query query = em.createQuery("delete " +
                 "from Comment a " +
                 "where a.id = :id");

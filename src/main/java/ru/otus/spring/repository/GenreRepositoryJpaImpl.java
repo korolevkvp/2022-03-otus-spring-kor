@@ -50,7 +50,7 @@ public class GenreRepositoryJpaImpl implements GenreRepositoryJpa {
     }
 
     @Override
-    public void deleteById(long id) throws GenreNotFoundException {
+    public void deleteById(long id) {
         Query query = em.createQuery("delete " +
                 "from Genre g " +
                 "where g.id = :id");

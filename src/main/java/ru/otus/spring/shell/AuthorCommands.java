@@ -18,12 +18,12 @@ public class AuthorCommands {
     private final ReaderService readerService;
 
     @ShellMethod(value = "Find all authors", key = {"a", "authors"})
-    public List<Author> findAllAuthors() {
+    public List<Author> findAll() {
         return authorService.findAll();
     }
 
     @ShellMethod(value = "Find author by id", key = {"fa", "find_author"})
-    public Author findAuthorById(Long id) {
+    public Author findById(Long id) {
         try {
             return authorService.findById(id);
         } catch (AuthorNotFoundException e) {
@@ -34,16 +34,12 @@ public class AuthorCommands {
 
 
     @ShellMethod(value = "Delete author by id", key = {"da", "delete_author"})
-    public void deleteAuthorById(Long id) {
-        try {
-            authorService.deleteById(id);
-        } catch (AuthorNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+    public void deleteById(Long id) {
+        authorService.deleteById(id);
     }
 
     @ShellMethod(value = "Create author", key = {"ca", "create_author"})
-    public Author createAuthor() {
+    public Author create() {
         return authorService.create(readerService.readAuthor());
     }
 }

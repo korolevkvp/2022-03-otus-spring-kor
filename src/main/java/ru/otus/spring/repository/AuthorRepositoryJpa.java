@@ -12,6 +12,6 @@ public interface AuthorRepositoryJpa {
     List<Author> findAll();
     Optional<Author> findById(long id);
     List<Author> findByName(String name);
-    void deleteById(Long id) throws AuthorNotFoundException;
+    void deleteById(Long id);
 
 }

@@ -18,12 +18,12 @@ public class CommentCommands {
     private final ReaderService readerService;
 
     @ShellMethod(value = "Find all comments", key = {"c", "comments"})
-    public List<Comment> findAllComments() {
+    public List<Comment> findAll() {
         return commentService.findAll();
     }
 
     @ShellMethod(value = "Find comment by id", key = {"fc", "find_comment"})
-    public Comment findCommentById(Long id) {
+    public Comment findById(Long id) {
         try {
             return commentService.findById(id);
         } catch (CommentNotFoundException e) {
@@ -33,16 +33,12 @@ public class CommentCommands {
     }
 
     @ShellMethod(value = "Delete comment by id", key = {"dc", "delete_comment"})
-    public void deleteCommentById(Long id) {
-        try {
-            commentService.deleteById(id);
-        } catch (CommentNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+    public void deleteById(Long id) {
+        commentService.deleteById(id);
     }
 
     @ShellMethod(value = "Create comment", key = {"cc", "create_comment"})
-    public Comment createComment() {
+    public Comment create() {
         return commentService.create(readerService.readComment());
     }
 }
