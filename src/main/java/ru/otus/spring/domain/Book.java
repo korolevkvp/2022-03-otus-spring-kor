@@ -1,6 +1,9 @@
 package ru.otus.spring.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,8 +34,8 @@ public class Book {
     @JoinColumn(name = "genreid")
     private Genre genre;
 
+    @BatchSize(size = 7)
     @OneToMany(targetEntity = Comment.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "book_comment", joinColumns = @JoinColumn(name = "bookid"),
-    inverseJoinColumns = @JoinColumn(name = "commentid"))
+    @JoinColumn(name = "bookid")
     private List<Comment> comments;
 }

@@ -19,3 +19,6 @@ databaseChangeLog:
         - column:
             name: content
             type: varchar(255)
+        - column:
+            name: bookid
+            type: bigint

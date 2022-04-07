@@ -1,4 +1,4 @@
-id,author,content
-1,Vasya,Nice!
-2,Petya,Cool!!
-3,Vadim,Not bad/
+id,author,content,bookid
+1,Vasya,Nice!,2
+2,Petya,Cool!!,2
+3,Vadim,Not bad/,3
