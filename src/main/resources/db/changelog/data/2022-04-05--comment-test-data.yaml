@@ -1,14 +1,14 @@
 databaseChangeLog:
   - changeSet:
-      id: 2022-03-21--author-test-data
+      id: 2022-03-21--comment-test-data
       author: vkorolev
       context: test
       runOnChange: true
       loadUpdateData:
         primaryKey: id
-        file: db/changelog/data/data/2022-03-21--author-data.csv
+        file: db/changelog/data/data/2022-04-05--comment-data.csv
         relativeToChangeLogFile: true
         separator: ","
         quotChar: '"'
         encoding: UTF-8
-        tableName: author
+        tableName: comment

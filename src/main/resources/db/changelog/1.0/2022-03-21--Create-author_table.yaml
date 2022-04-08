@@ -1,9 +1,9 @@
 databaseChangeLog:
   - changeSet:
-      id: 2022-03-21--Create-authors_table
+      id: 2022-03-21--Create-author_table
       author: vkorolev
       createTable:
-        tableName: authors
+        tableName: author
         columns:
         - column:
             name: id
@@ -12,7 +12,7 @@ databaseChangeLog:
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: pk_authors
+              primaryKeyName: pk_author
         - column:
             name: name
             type: varchar(50)
