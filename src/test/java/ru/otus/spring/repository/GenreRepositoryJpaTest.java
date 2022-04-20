@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import ru.otus.spring.domain.Genre;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,18 +11,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Репозиторий на основе Jpa для работы с жанрами")
 @DataJpaTest
-@Import(GenreRepositoryJpaImpl.class)
-class GenreRepositoryJpaImplTest {
+class GenreRepositoryJpaTest {
 
     @Autowired
-    private GenreRepositoryJpaImpl repositoryJpa;
+    private GenreRepositoryJpa repositoryJpa;
 
     @DisplayName("должен получать список жанров по названию")
     @Test
     void findByName() {
         Genre genre = repositoryJpa.save(genre());
 
-        assertThat(repositoryJpa.findByName(genre.getName())).usingElementComparatorIgnoringFields("id").contains(genre);
+        assertThat(repositoryJpa.findAllByName(genre.getName())).usingElementComparatorIgnoringFields("id").contains(genre);
     }
 
     @DisplayName("должен корректно выполнять сохранение жанра")

@@ -40,7 +40,7 @@ public class CommentConsoleService implements CommentService {
 
     @Override
     public List<Comment> findByAuthor(String name) {
-        return commentRepositoryJpa.findByAuthor(name);
+        return commentRepositoryJpa.findAllByAuthor(name);
     }
 
     @Override

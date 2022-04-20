@@ -11,11 +11,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Репозиторий на основе Jpa для работы с авторами")
 @DataJpaTest
-@Import(AuthorRepositoryJpaImpl.class)
-class AuthorRepositoryJpaImplTest {
+class AuthorRepositoryJpaTest {
 
     @Autowired
-    private AuthorRepositoryJpaImpl repositoryJpa;
+    private AuthorRepositoryJpa repositoryJpa;
 
 
     @DisplayName("должен корректно выполнять сохранение автора")
