@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2022-03-21--genre-test-data
+      author: vkorolev
+      context: test
+      runOnChange: true
+      loadUpdateData:
+        primaryKey: id
+        file: db/changelog/data/data/2022-03-21--genre-data.csv
+        relativeToChangeLogFile: true
+        separator: ","
+        quotChar: '"'
+        encoding: UTF-8
+        tableName: genre

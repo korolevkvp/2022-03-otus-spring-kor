@@ -10,7 +10,7 @@ import ru.otus.spring.domain.Genre;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@DisplayName("Репозиторий на основе Jpa для работы с книгами")
+@DisplayName("Репозиторий на основе Jpa для работы с жанрами")
 @DataJpaTest
 @Import(GenreRepositoryJpaImpl.class)
 class GenreRepositoryJpaImplTest {
