@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "book")
-@NamedEntityGraph(name = "book-author-genre-entity-graph", attributeNodes = {@NamedAttributeNode("author"), @NamedAttributeNode("genre")})
 public class Book {
 
     @Id
@@ -34,7 +33,7 @@ public class Book {
     @JoinColumn(name = "genreid")
     private Genre genre;
 
-    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Comment.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "bookid")
     private List<Comment> comments;
 }
