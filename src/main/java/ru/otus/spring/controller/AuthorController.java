@@ -2,35 +2,39 @@ package ru.otus.spring.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.otus.spring.domain.Author;
+import ru.otus.spring.exception.AuthorNotFoundException;
+import ru.otus.spring.service.AuthorService;
 import ru.otus.spring.service.ReaderService;
-import ru.otus.spring.service.printer.AuthorPrinterService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("author")
 @RequiredArgsConstructor
 public class AuthorController {
 
-    private final AuthorPrinterService authorPrinterService;
+    private final AuthorService authorService;
     private final ReaderService readerService;
 
     @GetMapping
-    public void findAll() {
-        authorPrinterService.findAll();
+    public List<Author> findAll() {
+        return authorService.findAll();
     }
 
     @GetMapping("{id}")
-    public void findById(@PathVariable("id") Long id) {
-        authorPrinterService.findById(id);
+    public Author findById(@PathVariable("id") Long id) throws AuthorNotFoundException {
+        return authorService.findById(id);
     }
 
 
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable("id") Long id) {
-        authorPrinterService.deleteById(id);
+        authorService.deleteById(id);
     }
 
     @PostMapping
-    public void create() {
-        authorPrinterService.create(readerService.readAuthor());
+    public Author create() {
+        return authorService.create(readerService.readAuthor());
     }
 }

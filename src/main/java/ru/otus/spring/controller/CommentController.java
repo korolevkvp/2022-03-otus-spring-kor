@@ -2,34 +2,38 @@ package ru.otus.spring.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.otus.spring.domain.Comment;
+import ru.otus.spring.exception.CommentNotFoundException;
+import ru.otus.spring.service.CommentService;
 import ru.otus.spring.service.ReaderService;
-import ru.otus.spring.service.printer.CommentPrinterService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("comment")
 @RequiredArgsConstructor
 public class CommentController {
 
-    private final CommentPrinterService commentPrinterService;
+    private final CommentService commentService;
     private final ReaderService readerService;
 
     @GetMapping
-    public void findAll() {
-        commentPrinterService.findAll();
+    public List<Comment> findAll() {
+        return commentService.findAll();
     }
 
     @GetMapping("{id}")
-    public void findById(@PathVariable("id") Long id) {
-        commentPrinterService.findById(id);
+    public Comment findById(@PathVariable("id") Long id) throws CommentNotFoundException {
+        return commentService.findById(id);
     }
 
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable("id") Long id) {
-        commentPrinterService.deleteById(id);
+        commentService.deleteById(id);
     }
 
     @PostMapping
-    public void create() {
-        commentPrinterService.create(readerService.readComment());
+    public Comment create() {
+        return commentService.create(readerService.readComment());
     }
 }

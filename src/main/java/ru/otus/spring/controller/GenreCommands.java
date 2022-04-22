@@ -2,34 +2,38 @@ package ru.otus.spring.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.otus.spring.domain.Genre;
+import ru.otus.spring.exception.GenreNotFoundException;
+import ru.otus.spring.service.GenreService;
 import ru.otus.spring.service.ReaderService;
-import ru.otus.spring.service.printer.GenrePrinterService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("genre")
 @RequiredArgsConstructor
 public class GenreCommands {
 
-    private final GenrePrinterService genrePrinterService;
+    private final GenreService genreService;
     private final ReaderService readerService;
 
     @GetMapping
-    public void findAll() {
-        genrePrinterService.findAll();
+    public List<Genre> findAll() {
+        return genreService.findAll();
     }
 
     @GetMapping("{id}")
-    public void findById(@PathVariable("id") Long id) {
-        genrePrinterService.findById(id);
+    public Genre findById(@PathVariable("id") Long id) throws GenreNotFoundException {
+        return genreService.findById(id);
     }
 
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable("id") Long id) {
-        genrePrinterService.deleteById(id);
+        genreService.deleteById(id);
     }
 
     @PostMapping
-    public void create() {
-        genrePrinterService.create(readerService.readGenre());
+    public Genre create() {
+        return genreService.create(readerService.readGenre());
     }
 }
