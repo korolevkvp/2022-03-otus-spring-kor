@@ -4,25 +4,23 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import ru.otus.spring.domain.Comment;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Репозиторий на основе Jpa для работы с комментариями")
 @DataJpaTest
-@Import(CommentRepositoryJpaImpl.class)
-class CommentRepositoryJpaImplTest {
+class CommentRepositoryJpaTest {
 
     @Autowired
-    private CommentRepositoryJpaImpl repositoryJpa;
+    private CommentRepositoryJpa repositoryJpa;
 
     @DisplayName("должен получать список комментариев по автору")
     @Test
     void findByAuthor() {
         Comment comment = repositoryJpa.save(comment());
 
-        assertThat(repositoryJpa.findByAuthor(comment.getAuthor())).usingElementComparatorIgnoringFields("id").contains(comment);
+        assertThat(repositoryJpa.findAllByAuthor(comment.getAuthor())).usingElementComparatorIgnoringFields("id").contains(comment);
     }
 
     @DisplayName("должен корректно выполнять сохранение комментария")

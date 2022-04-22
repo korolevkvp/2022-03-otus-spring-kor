@@ -24,6 +24,7 @@ public class BookConsoleService implements BookService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<Book> findAll() {
         return bookRepositoryJpa.findAll();
     }
@@ -37,6 +38,7 @@ public class BookConsoleService implements BookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Book findById(Long id) throws BookNotFoundException {
         Optional<Book> b = bookRepositoryJpa.findById(id);
         if (b.isPresent()) {

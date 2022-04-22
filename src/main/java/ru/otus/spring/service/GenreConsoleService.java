@@ -34,7 +34,7 @@ public class GenreConsoleService implements GenreService {
 
     @Override
     public List<Genre> findByName(String name) {
-        return genreRepositoryJpa.findByName(name);
+        return genreRepositoryJpa.findAllByName(name);
     }
 
     @Override

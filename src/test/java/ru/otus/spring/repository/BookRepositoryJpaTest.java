@@ -4,25 +4,23 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import ru.otus.spring.domain.Book;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Репозиторий на основе Jpa для работы с книгами")
 @DataJpaTest
-@Import(BookRepositoryJpaImpl.class)
-class BookRepositoryJpaImplTest {
+class BookRepositoryJpaTest {
 
     @Autowired
-    private BookRepositoryJpaImpl repositoryJpa;
+    private BookRepositoryJpa repositoryJpa;
 
     @DisplayName("должен получать список книг по названию")
     @Test
     void findByTitle() {
         Book book = repositoryJpa.save(book());
 
-        assertThat(repositoryJpa.findByTitle(book.getTitle())).usingElementComparatorIgnoringFields("id").contains(book);
+        assertThat(repositoryJpa.findAllByTitle(book.getTitle())).usingElementComparatorIgnoringFields("id").contains(book);
     }
 
     @DisplayName("должен обновлять название книги, которая находится по идентификатору")

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Service
-public class ReaderConsoleService implements ReaderService{
+public class ReaderConsoleService implements ReaderService {
 
     private final Scanner scanner = new Scanner(System.in);
 

@@ -34,7 +34,7 @@ public class AuthorConsoleService implements AuthorService {
 
     @Override
     public List<Author> findByName(String name) {
-        return authorRepositoryJpa.findByName(name);
+        return authorRepositoryJpa.findAllByName(name);
     }
 
     @Override

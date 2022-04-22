@@ -1,18 +1,23 @@
 package ru.otus.spring.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import ru.otus.spring.domain.Book;
-import ru.otus.spring.exception.BookNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface BookRepositoryJpa {
-    Book save(Book book);
-    Optional<Book> findById(long id);
+public interface BookRepositoryJpa extends JpaRepository<Book, Long> {
 
+    @EntityGraph(attributePaths = {"author", "genre"})
+    @Query("select b from Book b left join fetch b.comments")
     List<Book> findAll();
-    List<Book> findByTitle(String name);
 
-    void updateTitleById(long id, String name);
-    void deleteById(long id);
+    List<Book> findAllByTitle(String name);
+
+    @Modifying
+    @Query("update Book b set b.title = :title where b.id = :id")
+    void updateTitleById(@Param("id") long id, @Param("title") String title);
 }
