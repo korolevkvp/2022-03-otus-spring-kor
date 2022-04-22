@@ -1,35 +1,35 @@
-package ru.otus.spring.shell;
+package ru.otus.spring.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
+import org.springframework.web.bind.annotation.*;
 import ru.otus.spring.service.ReaderService;
 import ru.otus.spring.service.printer.AuthorPrinterService;
 
-@ShellComponent
+@RestController
+@RequestMapping("author")
 @RequiredArgsConstructor
-public class AuthorCommands {
+public class AuthorController {
 
     private final AuthorPrinterService authorPrinterService;
     private final ReaderService readerService;
 
-    @ShellMethod(value = "Find all authors", key = {"a", "authors"})
+    @GetMapping
     public void findAll() {
         authorPrinterService.findAll();
     }
 
-    @ShellMethod(value = "Find author by id", key = {"fa", "find_author"})
-    public void findById(Long id) {
+    @GetMapping("{id}")
+    public void findById(@PathVariable("id") Long id) {
         authorPrinterService.findById(id);
     }
 
 
-    @ShellMethod(value = "Delete author by id", key = {"da", "delete_author"})
-    public void deleteById(Long id) {
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable("id") Long id) {
         authorPrinterService.deleteById(id);
     }
 
-    @ShellMethod(value = "Create author", key = {"ca", "create_author"})
+    @PostMapping
     public void create() {
         authorPrinterService.create(readerService.readAuthor());
     }
