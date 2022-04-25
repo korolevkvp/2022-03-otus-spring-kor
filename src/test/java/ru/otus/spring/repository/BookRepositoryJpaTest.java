@@ -17,7 +17,7 @@ class BookRepositoryJpaTest {
 
     @DisplayName("должен получать список книг по названию")
     @Test
-    void findByTitle() {
+    void shouldCorrectFindByTitle() {
         Book book = repositoryJpa.save(book());
 
         assertThat(repositoryJpa.findAllByTitle(book.getTitle())).usingElementComparatorIgnoringFields("id").contains(book);
@@ -25,7 +25,7 @@ class BookRepositoryJpaTest {
 
     @DisplayName("должен обновлять название книги, которая находится по идентификатору")
     @Test
-    void updateTitleById() {
+    void shouldCorrectUpdateTitleById() {
         Book book = repositoryJpa.save(book());
         String TITLE = "title";
 
