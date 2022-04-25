@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.exception.BookNotFoundException;
 import ru.otus.spring.service.BookService;
-import ru.otus.spring.service.ReaderService;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
-    private final ReaderService readerService;
 
     @GetMapping
     public List<Book> findAll() {
@@ -27,9 +25,9 @@ public class BookController {
         return bookService.findById(id);
     }
 
-    @PostMapping("{id}")
-    public Book updateById(@PathVariable("id") Long id) {
-        return bookService.updateById(id, readerService.readBook());
+    @PutMapping("{id}")
+    public Book updateById(@PathVariable("id") Long id, @RequestBody Book book) {
+        return bookService.updateById(id, book);
     }
 
     @DeleteMapping("{id}")
@@ -38,7 +36,7 @@ public class BookController {
     }
 
     @PostMapping
-    public Book create() {
-        return bookService.create(readerService.readBook());
+    public Book create(@RequestBody Book book) {
+        return bookService.create(book);
     }
 }

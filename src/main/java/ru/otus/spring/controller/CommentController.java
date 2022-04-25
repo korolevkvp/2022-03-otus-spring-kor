@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.otus.spring.domain.Comment;
 import ru.otus.spring.exception.CommentNotFoundException;
 import ru.otus.spring.service.CommentService;
-import ru.otus.spring.service.ReaderService;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class CommentController {
 
     private final CommentService commentService;
-    private final ReaderService readerService;
 
     @GetMapping
     public List<Comment> findAll() {
@@ -33,7 +31,7 @@ public class CommentController {
     }
 
     @PostMapping
-    public Comment create() {
-        return commentService.create(readerService.readComment());
+    public Comment create(@RequestBody Comment comment) {
+        return commentService.create(comment);
     }
 }

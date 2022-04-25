@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.otus.spring.domain.Genre;
 import ru.otus.spring.exception.GenreNotFoundException;
 import ru.otus.spring.service.GenreService;
-import ru.otus.spring.service.ReaderService;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class GenreCommands {
 
     private final GenreService genreService;
-    private final ReaderService readerService;
 
     @GetMapping
     public List<Genre> findAll() {
@@ -33,7 +31,7 @@ public class GenreCommands {
     }
 
     @PostMapping
-    public Genre create() {
-        return genreService.create(readerService.readGenre());
+    public Genre create(@RequestBody Genre genre) {
+        return genreService.create(genre);
     }
 }

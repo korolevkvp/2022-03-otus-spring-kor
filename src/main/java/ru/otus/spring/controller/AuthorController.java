@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.otus.spring.domain.Author;
 import ru.otus.spring.exception.AuthorNotFoundException;
 import ru.otus.spring.service.AuthorService;
-import ru.otus.spring.service.ReaderService;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class AuthorController {
 
     private final AuthorService authorService;
-    private final ReaderService readerService;
 
     @GetMapping
     public List<Author> findAll() {
@@ -34,7 +32,7 @@ public class AuthorController {
     }
 
     @PostMapping
-    public Author create() {
-        return authorService.create(readerService.readAuthor());
+    public Author create(@RequestBody Author author) {
+        return authorService.create(author);
     }
 }
