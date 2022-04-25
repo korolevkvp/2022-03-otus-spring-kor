@@ -99,16 +99,16 @@ class BookControllerTest {
     @DisplayName("должен корректно создавать книгу")
     void create() throws Exception {
         String expectedResult = mapper.writeValueAsString(book());
-
+        System.out.println("commentRepository.findAll() = " + commentRepository.findAll());
         mvc.perform(post("/book/").contentType(MediaType.APPLICATION_JSON)
                         .content(expectedResult))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedResult));
-        assertThat(commentRepository.findAll()).contains(new Comment(4L, "Kim", "Khm"));
+        assertThat(commentRepository.findAll()).usingElementComparatorIgnoringFields("id").contains(new Comment(null, "Kim", "Khm"));
     }
 
     private Book book() {
-        return new Book(4L, "Buratino", 10, null, null, List.of(new Comment(4L, "Kim", "Khm")));
+        return new Book(4L, "Buratino", 10, null, null, List.of(new Comment(9L, "Kim", "Khm")));
     }
 
 }
