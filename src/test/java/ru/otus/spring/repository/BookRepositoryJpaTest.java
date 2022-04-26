@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import ru.otus.spring.domain.Book;
+import ru.otus.spring.domain.Comment;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,6 +17,9 @@ class BookRepositoryJpaTest {
 
     @Autowired
     private BookRepositoryJpa repositoryJpa;
+
+    @Autowired
+    private CommentRepositoryJpa commentRepository;
 
     @DisplayName("должен получать список книг по названию")
     @Test
@@ -68,12 +74,15 @@ class BookRepositoryJpaTest {
     void shouldCorrectDeleteBookById() {
         Book book = repositoryJpa.save(book());
 
+        assertThat(commentRepository.findAll()).usingElementComparatorIgnoringFields("id").contains(new Comment(9L, "Kim", "Khm"));
         repositoryJpa.deleteById(book.getId());
 
         assertThat(repositoryJpa.findAll()).doesNotContain(book());
+        System.out.println("commentRepository.findAll() = " + commentRepository.findAll());
+        assertThat(commentRepository.findAll()).usingElementComparatorIgnoringFields("id").doesNotContain(new Comment(9L, "Kim", "Khm"));
     }
 
     private Book book() {
-        return new Book(4L, "Buratino", 10, null, null, null);
+        return new Book(4L, "Buratino", 10, null, null, List.of(new Comment(9L, "Kim", "Khm")));
     }
 }
