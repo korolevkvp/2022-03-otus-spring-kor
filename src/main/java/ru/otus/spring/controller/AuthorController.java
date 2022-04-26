@@ -2,11 +2,12 @@ package ru.otus.spring.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.otus.spring.domain.Author;
+import ru.otus.spring.controller.dto.AuthorDto;
 import ru.otus.spring.exception.AuthorNotFoundException;
 import ru.otus.spring.service.AuthorService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("author")
@@ -16,13 +17,15 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @GetMapping
-    public List<Author> findAll() {
-        return authorService.findAll();
+    public List<AuthorDto> findAll() {
+        return authorService.findAll().stream()
+                .map(AuthorDto::toDto)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("{id}")
-    public Author findById(@PathVariable("id") Long id) throws AuthorNotFoundException {
-        return authorService.findById(id);
+    public AuthorDto findById(@PathVariable("id") Long id) throws AuthorNotFoundException {
+        return AuthorDto.toDto(authorService.findById(id));
     }
 
 
@@ -32,7 +35,7 @@ public class AuthorController {
     }
 
     @PostMapping
-    public Author create(@RequestBody Author author) {
-        return authorService.create(author);
+    public AuthorDto create(@RequestBody AuthorDto author) {
+        return AuthorDto.toDto(authorService.create(AuthorDto.toDomainObject(author)));
     }
 }
