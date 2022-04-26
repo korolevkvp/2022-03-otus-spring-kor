@@ -48,16 +48,18 @@ class BookRepositoryJpaTest {
         Book book = repositoryJpa.save(book());
 
         assertThat(book.getId()).isNotNull();
-        assertThat(repositoryJpa.findAll()).usingElementComparatorIgnoringFields("id").contains(book());
+        assertThat(repositoryJpa.findAll()).usingElementComparatorIgnoringFields("id", "comments").contains(book());
     }
 
     @DisplayName("должен корректно получать книгу по идентификатору")
     @Test
     void shouldCorrectFindBookById() {
-        Book book = repositoryJpa.save(book());
+        Book book = book();
+        book.setComments(null);
+        book = repositoryJpa.save(book);
 
-        Book testBook = book();
-        testBook.setId(book.getId());
+        Book testBook = book;
+
         assertThat(repositoryJpa.findById(book.getId()).get()).isEqualTo(testBook);
     }
 
@@ -66,7 +68,7 @@ class BookRepositoryJpaTest {
     void shouldCorrectFindAllBooks() {
         repositoryJpa.save(book());
 
-        assertThat(repositoryJpa.findAll()).isNotNull().usingElementComparatorIgnoringFields("id").contains(book());
+        assertThat(repositoryJpa.findAll()).isNotNull().usingElementComparatorIgnoringFields("id", "comments").contains(book());
     }
 
     @DisplayName("должен корректно удалять книгу по идентификатору")
