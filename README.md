@@ -24,3 +24,14 @@
 * JPQL, Spring ORM, DAO на Spring ORM + JPA
 * Транзакции, SpringTx
 * Spring Data, SpringData JPA
+
+## Третий модуль
+* Spring MVC, Spring MVC на Spring Boot
+* Spring Security
+  * Архитектура
+  * Механизмы аутентификации
+  * Авторизация
+* OAuth, JWT
+* Монолиты vs. Microservices: Messaging, Enterprise Integration Patterns (EIP)
+* Spring Integration Messages и Channels
+* Spring Integration Endpoints и Flow Components
