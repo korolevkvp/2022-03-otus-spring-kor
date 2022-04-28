@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Book;
@@ -43,6 +44,11 @@ class BookControllerTest {
     @Autowired
     private ObjectMapper mapper;
 
+    @WithMockUser(
+            username = "asdm22in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
     @Test
     @DisplayName("должен корректно выводить список всех книг")
     void shouldCorrectFindAll() throws Exception {
@@ -59,6 +65,19 @@ class BookControllerTest {
                 .andExpect(content().json(mapper.writeValueAsString(serviceExpected)));
     }
 
+
+    @Test
+    @DisplayName("должен выдавать другой статус неавторизованному пользователю")
+    void shouldThrowAnotherStatusIfUnauthorised() throws Exception {
+        mvc.perform(get("/book"))
+                .andExpect(status().isFound());
+    }
+
+    @WithMockUser(
+            username = "33",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
     @Test
     @DisplayName("должен корректно выводить книгу по идентификатору")
     void findById() throws Exception {
@@ -69,6 +88,11 @@ class BookControllerTest {
                 .andExpect(content().json(mapper.writeValueAsString(book)));
     }
 
+    @WithMockUser(
+            username = "asdm44in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
     @Test
     @DisplayName("должен корректно обновлять книгу по идентификатору")
     void updateById() throws Exception {
@@ -83,6 +107,11 @@ class BookControllerTest {
                 .andExpect(content().json(expectedResult));
     }
 
+    @WithMockUser(
+            username = "asdm55in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
     @Test
     @DisplayName("должен корректно удалять книгу по идентификатору")
     void deleteById() throws Exception {
@@ -95,6 +124,11 @@ class BookControllerTest {
                 .doesNotContain(book);
     }
 
+    @WithMockUser(
+            username = "asdm66in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
     @Test
     @DisplayName("должен корректно создавать книгу")
     void create() throws Exception {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Comment;
@@ -39,6 +40,11 @@ class CommentControllerTest {
     @Autowired
     private ObjectMapper mapper;
 
+    @WithMockUser(
+            username = "asdm22in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
     @Test
     @DisplayName("должен корректно выводить список всех комментариев")
     void shouldCorrectFindAll() throws Exception {
@@ -56,6 +62,18 @@ class CommentControllerTest {
     }
 
     @Test
+    @DisplayName("должен выдавать другой статус неавторизованному пользователю")
+    void shouldThrowAnotherStatusIfUnauthorised() throws Exception {
+        mvc.perform(get("/comment"))
+                .andExpect(status().isFound());
+    }
+
+    @WithMockUser(
+            username = "asdm22in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
+    @Test
     @DisplayName("должен корректно выводить комментарий по идентификатору")
     void findById() throws Exception {
         Comment comment = repository.save(comment());
@@ -65,6 +83,11 @@ class CommentControllerTest {
                 .andExpect(content().json(mapper.writeValueAsString(comment)));
     }
 
+    @WithMockUser(
+            username = "asdm22in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
     @Test
     @DisplayName("должен корректно удалять комментарий по идентификатору")
     void deleteById() throws Exception {
@@ -77,6 +100,11 @@ class CommentControllerTest {
                 .doesNotContain(comment);
     }
 
+    @WithMockUser(
+            username = "asdm22in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
     @Test
     @DisplayName("должен корректно создавать жанр")
     void create() throws Exception {
