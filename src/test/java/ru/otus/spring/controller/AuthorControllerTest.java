@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Author;
@@ -38,6 +39,11 @@ class AuthorControllerTest {
     @Autowired
     private ObjectMapper mapper;
 
+    @WithMockUser(
+            username = "asdm22in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
     @Test
     @DisplayName("должен корректно выводить список всех авторов")
     void shouldCorrectFindAll() throws Exception {
@@ -55,6 +61,18 @@ class AuthorControllerTest {
     }
 
     @Test
+    @DisplayName("должен выдавать другой статус неавторизованному пользователю")
+    void shouldThrowAnotherStatusIfUnauthorised() throws Exception {
+        mvc.perform(get("/author"))
+                .andExpect(status().isFound());
+    }
+
+    @WithMockUser(
+            username = "asdm22in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
+    @Test
     @DisplayName("должен корректно выводить автора по идентификатору")
     void findById() throws Exception {
         Author author = repository.save(author());
@@ -64,6 +82,12 @@ class AuthorControllerTest {
                 .andExpect(content().json(mapper.writeValueAsString(author)));
     }
 
+
+    @WithMockUser(
+            username = "asdm22in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
     @Test
     @DisplayName("должен корректно удалять автора по идентификатору")
     void deleteById() throws Exception {
@@ -76,6 +100,11 @@ class AuthorControllerTest {
                 .doesNotContain(author);
     }
 
+    @WithMockUser(
+            username = "asdm22in",
+            value = "adsm22in",
+            roles = "ADsM22IN",
+            password = "passsw22ord")
     @Test
     @DisplayName("должен корректно создавать автора")
     void create() throws Exception {
