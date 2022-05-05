@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2022-03-21--Create-user_table
+      author: vkorolev
+      createTable:
+        tableName: user
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_user
+        - column:
+            name: username
+            type: varchar(50)
+        - column:
+            name: password
+            type: varchar(50)
