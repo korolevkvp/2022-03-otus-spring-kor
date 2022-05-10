@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2022-05-10--user-test-data
+      author: vkorolev
+      context: test
+      runOnChange: true
+      loadUpdateData:
+        primaryKey: id
+        file: db/changelog/data/data/2022-05-10--user-data.csv
+        relativeToChangeLogFile: true
+        separator: ","
+        quotChar: '"'
+        encoding: UTF-8
+        tableName: user
