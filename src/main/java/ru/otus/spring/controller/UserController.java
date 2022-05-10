@@ -8,7 +8,7 @@ import ru.otus.spring.controller.dto.UserDto;
 import ru.otus.spring.service.UserService;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
