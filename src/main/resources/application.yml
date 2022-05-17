@@ -8,3 +8,16 @@ spring:
     enabled: true
   jpa:
     show-sql: true
+
+#    actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
