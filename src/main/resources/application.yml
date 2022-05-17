@@ -8,3 +8,21 @@ spring:
     enabled: true
   jpa:
     show-sql: true
+
+#    actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    logfile:
+      enabled: true
+  health:
+    defaults:
+      enabled: true
+logging:
+  file:
+    name: logging.file
