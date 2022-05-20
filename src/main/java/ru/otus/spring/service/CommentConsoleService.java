@@ -3,6 +3,7 @@ package ru.otus.spring.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 import ru.otus.spring.domain.Comment;
 import ru.otus.spring.exception.CommentNotFoundException;
 import ru.otus.spring.repository.CommentRepositoryJpa;
@@ -46,6 +47,11 @@ public class CommentConsoleService implements CommentService {
     @Override
     @Transactional
     public Comment create(Comment comment) {
+        if (comment.getContent() == null || comment.getContent().equals("")) {
+            RestTemplate rest = new RestTemplate();
+            Comment newComment = rest.getForObject("http://localhost:8081/generate", Comment.class);
+            if (newComment != null) comment = newComment;
+        }
         comment = commentRepositoryJpa.save(comment);
         return comment;
     }
