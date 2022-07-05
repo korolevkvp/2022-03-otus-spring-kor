@@ -70,6 +70,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+
+        <finalName>2202-03-otus-spring-kor</finalName>
     </build>
 
 </project>
