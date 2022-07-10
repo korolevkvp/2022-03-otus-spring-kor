@@ -1,13 +1,27 @@
 spring:
+
+  # postgres
   datasource:
-    url: jdbc:h2:mem:testdb
-  h2:
-    console:
-      enabled: true
-  liquibase:
-    enabled: true
+    # Эти свойства будут перегружены свойствами в docker-compose.yml
+    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://postgres:5432/db
+    username: postgres
+    password: postgrespw
+    url: jdbc:postgresql://localhost:49154/postgres
   jpa:
-    show-sql: true
+    generate-ddl: true
+
+
+  # h2
+#  datasource:
+#    url: jdbc:h2:mem:testdb
+#  h2:
+#    console:
+#      enabled: true
+#  liquibase:
+#    enabled: true
+#  jpa:
+#    show-sql: true
 
 #    actuator
 management:
