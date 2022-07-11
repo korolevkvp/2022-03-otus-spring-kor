@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Genre;
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 @DisplayName("Контроллер для работы с жанрами")
+@ActiveProfiles("test")
 class GenreControllerTest {
 
     @Autowired
@@ -80,6 +82,7 @@ class GenreControllerTest {
     @Test
     @DisplayName("должен корректно создавать жанр")
     void create() throws Exception {
+        repository.deleteAll();
         String expectedResult = mapper.writeValueAsString(genre());
 
         mvc.perform(post("/genre/").contentType(MediaType.APPLICATION_JSON)
@@ -89,7 +92,7 @@ class GenreControllerTest {
     }
 
     private Genre genre() {
-        return new Genre(4L, "Chill");
+        return new Genre(6L, "Chill");
     }
 
 }

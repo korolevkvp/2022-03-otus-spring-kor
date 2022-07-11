@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Book;
@@ -26,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 @DisplayName("Контроллер для работы с книгами")
+@ActiveProfiles("test")
 class BookControllerTest {
 
     @Autowired
@@ -98,6 +100,8 @@ class BookControllerTest {
     @Test
     @DisplayName("должен корректно создавать книгу")
     void create() throws Exception {
+        commentRepository.deleteAll();
+        repository.deleteAll();
         String expectedResult = mapper.writeValueAsString(book());
         System.out.println("commentRepository.findAll() = " + commentRepository.findAll());
         mvc.perform(post("/book/").contentType(MediaType.APPLICATION_JSON)
@@ -108,7 +112,7 @@ class BookControllerTest {
     }
 
     private Book book() {
-        return new Book(4L, "Buratino", 10, null, null, List.of(new Comment(9L, "Kim", "Khm")));
+        return new Book(1L, "Buratino", 10, null, null, List.of(new Comment(6L, "Kim", "Khm")));
     }
 
 }

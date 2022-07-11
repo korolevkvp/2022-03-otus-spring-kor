@@ -1,14 +1,17 @@
 spring:
 
-  # postgres
+
+# h2
   datasource:
-    # Эти свойства будут перегружены свойствами в docker-compose.yml
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://postgres:5432/db
-    username: postgres
-    password: postgres
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+  h2:
+    console:
+      enabled: true
+  liquibase:
+    enabled: true
   jpa:
-    generate-ddl: true
+    show-sql: true
 
 
 
