@@ -1,6 +1,7 @@
 package ru.otus.spring.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,11 @@ class GenreControllerTest {
 
     @Autowired
     private ObjectMapper mapper;
+
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
+    }
 
     @Test
     @DisplayName("должен корректно выводить список всех жанров")
@@ -92,7 +98,7 @@ class GenreControllerTest {
     }
 
     private Genre genre() {
-        return new Genre(6L, "Chill");
+        return new Genre(1L, "Chill");
     }
 
 }
