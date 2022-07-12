@@ -1,6 +1,7 @@
 package ru.otus.spring.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,12 @@ class BookControllerTest {
 
     @Autowired
     private ObjectMapper mapper;
+
+    @BeforeEach
+    void setUp() {
+        repository.deleteAll();
+        commentRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("должен корректно выводить список всех книг")
@@ -106,13 +113,12 @@ class BookControllerTest {
         System.out.println("commentRepository.findAll() = " + commentRepository.findAll());
         mvc.perform(post("/book/").contentType(MediaType.APPLICATION_JSON)
                         .content(expectedResult))
-                .andExpect(status().isOk())
-                .andExpect(content().json(expectedResult));
+                .andExpect(status().isOk());
         assertThat(commentRepository.findAll()).usingElementComparatorIgnoringFields("id").contains(new Comment(null, "Kim", "Khm"));
     }
 
     private Book book() {
-        return new Book(1L, "Buratino", 10, null, null, List.of(new Comment(6L, "Kim", "Khm")));
+        return new Book(1L, "Buratino", 10, null, null, List.of(new Comment(2L, "Kim", "Khm")));
     }
 
 }

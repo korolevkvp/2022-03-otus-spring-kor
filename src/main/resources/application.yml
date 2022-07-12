@@ -11,6 +11,13 @@ spring:
     generate-ddl: true
 
 
+  cloud:
+    stream:
+      bindings:
+        comment:
+          destination: comment
+      default-binder: kafka
+
 
 #    actuator
 management:
