@@ -1,18 +1,15 @@
 package ru.otus.spring.actuator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator;
-import org.springframework.core.log.LogMessage;
 import org.springframework.util.unit.DataSize;
 
 import java.io.File;
 
-
+@Slf4j
 public class GbDiskSpaceHealthIndicator extends DiskSpaceHealthIndicator {
 
-    private static final Log logger = LogFactory.getLog(DiskSpaceHealthIndicator.class);
     private final File path;
     private final DataSize threshold;
 
@@ -30,7 +27,7 @@ public class GbDiskSpaceHealthIndicator extends DiskSpaceHealthIndicator {
         if (diskFreeInBytes >= threshold.toBytes()) {
             builder.up();
         } else {
-            logger.warn(LogMessage.format("Free disk space below threshold. Available: %d gigabytes (threshold: %s)", diskFreeInBytes / 1024 / 1024 / 1024, this.threshold));
+            log.warn(String.format("Free disk space below threshold. Available: %d gigabytes (threshold: %s)", diskFreeInBytes / 1024 / 1024 / 1024, this.threshold));
             builder.down();
         }
 

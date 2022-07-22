@@ -18,9 +18,7 @@ public class AuthorController {
 
     @GetMapping
     public List<AuthorDto> findAll() {
-        return authorService.findAll().stream()
-                .map(AuthorDto::toDto)
-                .collect(Collectors.toList());
+        return authorService.findAll().stream().map(AuthorDto::toDto).collect(Collectors.toList());
     }
 
     @GetMapping("{id}")
@@ -38,4 +36,5 @@ public class AuthorController {
     public AuthorDto create(@RequestBody AuthorDto author) {
         return AuthorDto.toDto(authorService.create(AuthorDto.toDomainObject(author)));
     }
+
 }

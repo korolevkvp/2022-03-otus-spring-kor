@@ -5,6 +5,8 @@ spring:
   datasource:
     driverClassName: org.h2.Driver
     url: jdbc:h2:mem:testdb
+    username: sa
+    password:
   h2:
     console:
       enabled: true
@@ -34,6 +36,3 @@ management:
   health:
     defaults:
       enabled: true
-logging:
-  file:
-    name: logging.file
