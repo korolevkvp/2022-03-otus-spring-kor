@@ -18,7 +18,7 @@ public class GenreConsoleService implements GenreService {
 
     private final GenreRepositoryJpa genreRepositoryJpa;
 
-    private final String HYSTRIX_MESSAGE = "Извините, сейчас мы не можем дать вам ответ";
+    private final static String HYSTRIX_MESSAGE = "Извините, сейчас мы не можем дать вам ответ";
 
     @HystrixCommand(commandKey = "findAll", fallbackMethod = "fallbackFindAll")
     @Override
@@ -26,10 +26,7 @@ public class GenreConsoleService implements GenreService {
         return genreRepositoryJpa.findAll();
     }
 
-    public List<Genre> fallbackFindAll() {
-        return Collections.singletonList(fallbackGenre());
-    }
-
+    @HystrixCommand(commandKey = "findById", fallbackMethod = "fallbackFindOne")
     @Override
     public Genre findById(Long id) throws GenreNotFoundException {
         Optional<Genre> b = genreRepositoryJpa.findById(id);
@@ -40,17 +37,20 @@ public class GenreConsoleService implements GenreService {
         }
     }
 
+    @HystrixCommand(commandKey = "findByName", fallbackMethod = "fallbackFindAll")
     @Override
     public List<Genre> findByName(String name) {
         return genreRepositoryJpa.findAllByName(name);
     }
 
+    @HystrixCommand(commandKey = "deleteById", fallbackMethod = "fallbackFindOne")
     @Override
     @Transactional
     public void deleteById(Long id) {
         genreRepositoryJpa.deleteById(id);
     }
 
+    @HystrixCommand(commandKey = "create", fallbackMethod = "fallbackFindOne")
     @Override
     @Transactional
     public Genre create(Genre genre) {
@@ -59,6 +59,15 @@ public class GenreConsoleService implements GenreService {
     }
 
     private Genre fallbackGenre() {
-        return new Genre(0L, HYSTRIX_MESSAGE);
+        Genre genre = new Genre();
+        genre.setName(HYSTRIX_MESSAGE);
+        return genre;
+    }
+
+    public List<Genre> fallbackFindAll() {
+        return Collections.singletonList(fallbackGenre());
+    }
+    public Genre fallbackFindOne() {
+        return fallbackGenre();
     }
 }
