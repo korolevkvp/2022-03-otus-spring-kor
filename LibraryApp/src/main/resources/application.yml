@@ -33,6 +33,3 @@ management:
   health:
     defaults:
       enabled: true
-logging:
-  file:
-    name: logging.file
