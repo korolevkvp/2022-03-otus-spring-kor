@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Comment;
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 @DisplayName("Контроллер для работы с комментариями")
+@ActiveProfiles("test")
 class CommentControllerTest {
 
     @Autowired
@@ -89,7 +91,7 @@ class CommentControllerTest {
     }
 
     private Comment comment() {
-        return new Comment(4L, "Michael Jordan", "Mmm, nice!");
+        return new Comment(1L, "Michael Jordan", "Mmm, nice!");
     }
 
 }

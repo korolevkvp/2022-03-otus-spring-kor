@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.domain.Author;
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 @DisplayName("Контроллер для работы с авторами")
+@ActiveProfiles("test")
 class AuthorControllerTest {
 
     @Autowired
@@ -88,7 +90,7 @@ class AuthorControllerTest {
     }
 
     private Author author() {
-        return new Author(4L, "Greg", "House");
+        return new Author(1L, "Greg", "House");
     }
 
 }
