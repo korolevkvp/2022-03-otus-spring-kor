@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2022-03-21--Create-genre_table
+      author: vkorolev
+      createTable:
+        tableName: genre
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_genre
+        - column:
+            name: name
+            type: varchar(50)

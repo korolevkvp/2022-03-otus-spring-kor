@@ -1,0 +1,38 @@
+spring:
+
+
+# h2
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  liquibase:
+    enabled: true
+  jpa:
+    show-sql: true
+
+  cloud:
+    stream:
+      bindings:
+        comment:
+          destination: comment
+      default-binder: kafka
+
+#    actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    logfile:
+      enabled: true
+  health:
+    defaults:
+      enabled: true

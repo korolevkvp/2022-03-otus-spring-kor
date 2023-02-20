@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2022-04-05--Create-comment_table
+      author: vkorolev
+      createTable:
+        tableName: comment
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_comment
+        - column:
+            name: author
+            type: varchar(50)
+        - column:
+            name: content
+            type: varchar(255)
+        - column:
+            name: bookid
+            type: bigint
