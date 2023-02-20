@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("genre")
 @RequiredArgsConstructor
-public class GenreCommands {
+public class GenreController {
 
     private final GenreService genreService;
 
